@@ -1,0 +1,594 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,900&display=swap");
+:root {
+  --primaryFont: "Roboto", sans-serif;
+  --primaryColor: #25316d;
+  --textColor: #4e4e4e;
+  --whiteColor: #ffffff;
+  --blackColor: #000000;
+}
+
+/* ==============================
+Default CSS
+=================================*/
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--primaryFont);
+}
+
+p {
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: var(--textColor);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: var(--textColor);
+}
+
+img {
+  max-width: 100%;
+}
+
+.pt-70 {
+  padding-top: 70px;
+}
+
+.pb-70 {
+  padding-bottom: 70px;
+}
+
+.ptb-70 {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.pt-80 {
+  padding-top: 80px;
+}
+
+.pb-80 {
+  padding-bottom: 80px;
+}
+
+.ptb-80 {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.pt-50 {
+  padding-top: 50px;
+}
+
+.pb-50 {
+  padding-bottom: 50px;
+}
+
+.ptb-50 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.bg-eeeeee {
+  background-color: rgba(238, 238, 238, 0.3843137255);
+}
+
+.sticky {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--primaryColor) !important;
+  z-index: 99999;
+  padding: 0px;
+  transition: 0.5s ease-in-out;
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.09);
+  -webkit-animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+          animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+}
+
+.section-title h6 {
+  color: var(--primaryColor);
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 400;
+}
+.section-title h3 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.section-middle {
+  text-align: center;
+}
+
+/* ==============================
+Default CSS Area
+=================================*/
+.default-button {
+  padding: 12px 40px;
+  border-radius: 25px;
+  display: inline-block;
+  overflow: hidden;
+  border: 0px;
+  background-color: transparent;
+  transition: 0.5s ease-in-out;
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--primaryFont);
+}
+.default-button::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-size: 200% auto;
+  transition: 0.5s ease-in-out;
+  background-image: linear-gradient(to right, #102baf 0%, #1664ff 50%, #102baf 100%);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+.default-button span {
+  color: var(--whiteColor);
+  position: relative;
+  z-index: 2;
+}
+.default-button:hover::before {
+  background-position: right center;
+}
+
+.white-button::before {
+  background-color: var(--whiteColor);
+  background-image: unset;
+}
+.white-button span {
+  color: var(--primaryColor);
+}
+
+.group-button .default-button {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.read-more-btn {
+  display: inline-flex;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--primaryFont);
+}
+.read-more-btn iconify-icon {
+  padding-left: 5px;
+  position: relative;
+  top: 1px;
+}
+.read-more-btn:hover {
+  letter-spacing: 1px;
+}
+
+/* ==============================
+Header CSS Area
+=================================*/
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 99;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.navigation ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navigation ul .nav-item {
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.navigation ul .nav-item .nav-link {
+  display: inline-block;
+  color: var(--whiteColor);
+  position: relative;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--primaryFont);
+}
+.navigation ul .nav-item .nav-link::before {
+  content: "";
+  width: 0px;
+  height: 1px;
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+  background-color: var(--whiteColor);
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+}
+.navigation ul .nav-item .nav-link:hover::before {
+  width: 100%;
+  border-radius: 0px;
+}
+.navigation ul .nav-item .active::before {
+  width: 100%;
+  border-radius: 0px;
+}
+
+.header {
+  background-image: url("../images/hero-img.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.header::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+.header .banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+/*================================================
+Navbar Area CSS
+=================================================*/
+.banner-content {
+  text-align: center;
+}
+.banner-content h3 {
+  color: var(--whiteColor);
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.banner-content h1 {
+  color: var(--whiteColor);
+  font-size: 75px;
+  font-weight: 700;
+}
+.banner-content h4 {
+  color: var(--whiteColor);
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  font-family: var(--primaryFont);
+}
+
+.deadline-countdown #example li {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.deadline-countdown #example span {
+  font-size: 64px !important;
+  font-weight: 600 !important;
+  font-family: var(--primaryFont) !important;
+}
+.deadline-countdown #example #day span,
+.deadline-countdown #example #day p {
+  color: #ee163a;
+}
+.deadline-countdown #example #hour span,
+.deadline-countdown #example #hour p {
+  color: #ffc107;
+}
+.deadline-countdown #example #minute span,
+.deadline-countdown #example #minute p {
+  color: #03a9f4;
+}
+.deadline-countdown #example #second span,
+.deadline-countdown #example #second p {
+  color: #8bc34a;
+}
+
+/* ==============================
+Honors Talk CSS Area
+=================================*/
+.honorsCard {
+  background-color: var(--whiteColor);
+  box-shadow: 0 0 10px #d4d4d4;
+  border-radius: 0 0 10px 10px;
+}
+.honorsCard h3 {
+  padding: 10px 20px;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+  font-size: 20px;
+  font-weight: 600;
+  font-family: var(--primaryFont);
+}
+.honorsCard img {
+  width: 180px;
+  height: 180px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 2px;
+}
+.honorsCard .honorsCardContent {
+  padding: 20px 25px;
+}
+.honorsCard .honorsCardContent h4,
+.honorsCard .honorsCardContent p {
+  text-align: justify;
+}
+.honorsCard .honorsCardContent h4 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* ==============================
+Photo Gallery CSS Area
+=================================*/
+.gallery-card {
+  box-shadow: 0 0 10px #eeeeee;
+  background: #ffffff;
+}
+.gallery-card .gallery-card-img {
+  overflow: hidden;
+}
+.gallery-card .gallery-card-img img {
+  transition: 0.5s ease-in-out;
+}
+.gallery-card h3 {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.gallery-card:hover .gallery-card-img img {
+  transform: scale(1.1);
+}
+
+/* ==============================
+Video Gallery CSS Area
+=================================*/
+.video-card {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #eeeeee;
+  background-color: var(--whiteColor);
+}
+.video-card iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+
+/* ==============================
+Footer CSS Area
+=================================*/
+.footer {
+  background-color: #25316d;
+}
+.footer .footer-logo-area img {
+  width: 100px;
+  margin-bottom: 20px;
+}
+.footer .footer-logo-area p {
+  color: var(--whiteColor);
+}
+
+.footer-links h3 {
+  color: var(--whiteColor);
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.footer-links ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-links ul li {
+  margin-top: 13px;
+  position: relative;
+  padding-left: 20px;
+  color: var(--whiteColor);
+}
+.footer-links ul li::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: 0.5s ease-in-out;
+  border: 1px solid var(--whiteColor);
+  position: absolute;
+  left: 0;
+  top: 8.5px;
+}
+.footer-links ul li a {
+  display: inline-block;
+  color: #aaaaaa;
+  transition: 0.5s ease-in-out;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.footer-links ul li:hover::before {
+  background-color: #0f3ead;
+}
+.footer-links ul li:hover a {
+  color: var(--whiteColor);
+}
+
+.pl-70 {
+  padding-left: 70px;
+}
+
+.footer-contact-list ul li {
+  position: relative;
+  padding-left: 90px;
+  font-size: 15px;
+  font-family: var(--primaryFont);
+}
+.footer-contact-list ul li span {
+  position: absolute;
+  left: 20px;
+  top: 0;
+}
+
+/* ==============================
+Copyright CSS Area
+=================================*/
+.copyright {
+  border-top: 1px solid rgba(238, 238, 238, 0.062745098);
+  background-color: var(--primaryColor);
+}
+.copyright p {
+  padding: 10px 15px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: var(--whiteColor);
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  font-family: var(--primaryFont);
+}
+.copyright p a {
+  color: #ee163a;
+}
+
+/* ==============================
+Login Registration Form CSS Area
+================================= */
+#login-body {
+  background-image: linear-gradient(45deg, #5DA7DB, #81C6E8, #5DA7DB, #81C6E8, #5DA7DB, #81C6E8);
+}
+
+.login-area {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.from-body {
+  padding: 40px 20px 20px;
+  position: relative;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.2549019608);
+  background-image: url("../images/logo-bgo.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  -webkit-backdrop-filter: opacity(20%);
+          backdrop-filter: opacity(20%);
+}
+.from-body nav {
+  position: relative;
+  text-align: center;
+  z-index: 99;
+}
+.from-body .nav-tabs {
+  justify-content: center;
+  border: 0px;
+  overflow: hidden;
+  border-radius: 10px !important;
+  display: inline-flex;
+  background-color: rgba(255, 255, 255, 0.3137254902);
+}
+.from-body .nav-tabs .nav-link {
+  border: 0px;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--primaryFont);
+}
+.from-body .nav-tabs .active {
+  color: var(--whiteColor);
+  background-color: var(--primaryColor);
+}
+.from-body .tabs-content {
+  position: relative;
+  z-index: 99;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.from-body .tabs-content .default-button {
+  margin-top: 30px;
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.inputGroups {
+  margin-top: 15px;
+}
+.inputGroups label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--primaryFont);
+}
+.inputGroups .form-control {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(238, 238, 238, 0.7137254902);
+  background-color: rgba(255, 255, 255, 0.137254902);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}
+.inputGroups .form-control:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.keeplogin {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.keeplogin label {
+  margin-left: 5px;
+  position: relative;
+  top: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--primaryFont);
+}/*# sourceMappingURL=style.css.map */
