@@ -24,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('profile', function(){
+
+    return view('frontend.user.profile');
+});
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

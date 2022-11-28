@@ -1,6 +1,6 @@
 <!-- Header Area -->
 <header class="header">
-    <nav class="header-nav">
+    <nav class="header-nav inner-nav">
         <div class="container">
             <div class="navigation">
                 <a href="index.html"><img src="assets/frontend/images/logo.png" alt="logo"></a>
