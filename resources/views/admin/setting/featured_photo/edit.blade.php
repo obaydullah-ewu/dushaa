@@ -29,7 +29,7 @@
                                             <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})">
                                                 <!--begin::Preview existing avatar-->
                                                 @if($photo->image)
-                                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ getFile(getOption('secretary_image')) }})"></div>
+                                                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ getFile($photo->image) }})"></div>
                                                 @else
                                                     <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{ asset('assets/media/avatars/blank.png') }})"></div>
                                                 @endif
@@ -57,6 +57,7 @@
                                             <!--end::Image input-->
                                             <!--begin::Hint-->
                                             <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                            <div class="form-text">Allowed File Size: 800*500</div>
                                             <!--end::Hint-->
                                         </div>
                                         <div class="form-group mb-4 col-md-4">
@@ -71,7 +72,6 @@
                                             <label class="required fw-bolder">Status</label>
                                             <div class="input-group input-group-solid">
                                                 <select name="status" class="form-select form-select-solid">
-                                                    <option value="">--Select Option</option>
                                                     <option value="1" {{ $photo->status == 1 ? 'selected':'' }}>Active</option>
                                                     <option value="0" {{ $photo->status != 1 ? 'selected':'' }}>Disable</option>
                                                 </select>

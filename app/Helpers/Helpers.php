@@ -5,6 +5,9 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 //use File;
 
+const ACTIVE = 1;
+const INACTIVE = 0;
+
 function saveImage($destination, $attribute , $width=null, $height=null): string
 {
     if (!File::isDirectory(base_path().'/public/uploads/'.$destination)){

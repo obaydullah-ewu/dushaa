@@ -17,7 +17,7 @@ class FeaturedPhotoController extends Controller
     {
         $data['pageTitle'] = "Photo List";
         $data['navSettingActiveCLass'] = 'hover show';
-        $data['subNavFeaturedGalleryActiveCLass'] = 'active';
+        $data['subNavFeaturedGalleryPhotoActiveCLass'] = 'active';
         $data['photos'] = FeaturedGalleryPhoto::paginate();
         return view('admin.setting.featured_photo.list')->with($data);
     }
@@ -31,7 +31,7 @@ class FeaturedPhotoController extends Controller
     {
         $data['pageTitle'] = 'Add Featured Photo';
         $data['navSettingActiveCLass'] = 'hover show';
-        $data['subNavFeaturedGalleryActiveCLass'] = 'active';
+        $data['subNavFeaturedGalleryPhotoActiveCLass'] = 'active';
         return view('admin.setting.featured_photo.add')->with($data);
     }
 
@@ -43,10 +43,15 @@ class FeaturedPhotoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'image' => 'mimes:png,jpg,jpeg|file|dimensions:min_width=800,min_height=500,max_width=800,max_height=500'
+        ]);
+
         $photo = new FeaturedGalleryPhoto();
         $photo->title = $request->title;
         $photo->image = saveImage('FeaturedGalleryPhoto', $request->image);
-        $photo->status = $request->status;
+        $photo->status = $request->status ?? 1;
         $photo->serial = $request->serial;
         $photo->save();
 
@@ -74,7 +79,7 @@ class FeaturedPhotoController extends Controller
     {
         $data['pageTitle'] = 'Edit Featured Photo';
         $data['navSettingActiveCLass'] = 'hover show';
-        $data['subNavFeaturedGalleryActiveCLass'] = 'active';
+        $data['subNavFeaturedGalleryPhotoActiveCLass'] = 'active';
         $data['photo'] = FeaturedGalleryPhoto::find($id);
         return view('admin.setting.featured_photo.edit')->with($data);
     }
@@ -88,13 +93,18 @@ class FeaturedPhotoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required',
+            'image' => 'mimes:png,jpg,jpeg|file|dimensions:min_width=800,min_height=500,max_width=800,max_height=500'
+        ]);
+
         $photo = FeaturedGalleryPhoto::find($id);
         $photo->title = $request->title;
         if ($request->file('image')) {
             deleteFile($photo->image);
             $photo->image = saveImage('FeaturedGalleryPhoto', $request->image);
         }
-        $photo->status = $request->status;
+        $photo->status = $request->status ?? 1;
         $photo->serial = $request->serial;
         $photo->save();
 

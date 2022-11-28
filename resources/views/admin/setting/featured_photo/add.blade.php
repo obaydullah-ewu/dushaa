@@ -51,7 +51,8 @@
                                             </div>
                                             <!--end::Image input-->
                                             <!--begin::Hint-->
-                                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                            <div class="form-text">Allowed file types: png, jpg, jpeg. </div>
+                                            <div class="form-text">Allowed File Size: 800*500</div>
                                             <!--end::Hint-->
                                         </div>
                                         <div class="form-group mb-4 col-md-4">
@@ -66,7 +67,6 @@
                                             <label class="required fw-bolder">Status</label>
                                             <div class="input-group input-group-solid">
                                                 <select name="status" class="form-select form-select-solid">
-                                                    <option value="">--Select Option</option>
                                                     <option value="1">Active</option>
                                                     <option value="0">Disable</option>
                                                 </select>

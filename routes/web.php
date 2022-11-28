@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeaturedPhotoController;
+use App\Http\Controllers\Admin\FeaturedVideoController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Frontend\AuthController;
@@ -43,6 +44,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
             Route::get('home-setting', [SettingController::class, 'homeSetting'])->name('home-setting');
             Route::post('general-settings-update', [SettingController::class, 'generalSettingUpdate'])->name('general-settings.update');
             Route::resource('featured-photo', FeaturedPhotoController::class);
+            Route::resource('featured-video', FeaturedVideoController::class);
         });
     });
 });

@@ -104,12 +104,12 @@
                                         </div>
                                         <div class="form-group mb-4 col-md-4">
                                             <label class="required fw-bolder">Secretary Name</label>
-                                            <input type="text" name="president_name" class="form-control form-control-solid"
-                                                   placeholder="Enter secretary name" value="{{ getOption('president_name') }}" required>
+                                            <input type="text" name="secretary_name" class="form-control form-control-solid"
+                                                   placeholder="Enter secretary name" value="{{ getOption('secretary_name') }}" required>
                                         </div>
                                         <div class="form-group mb-4 col-md-4">
                                             <label class="required fw-bolder">Secretary Quotation</label>
-                                            <textarea name="president_quotation" class="form-control form-control-solid" id="" cols="30" rows="5">{{ getOption('president_quotation') }}</textarea>
+                                            <textarea name="secretary_quotation" class="form-control form-control-solid" id="" cols="30" rows="5">{{ getOption('secretary_quotation') }}</textarea>
                                         </div>
 
                                     </div>

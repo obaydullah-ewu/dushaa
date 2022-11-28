@@ -205,11 +205,18 @@
                                 <span class="menu-title">Home Setting</span>
                             </a>
                             <a href="{{ route('admin.setting.featured-photo.index') }}"
-                               class="menu-link {{ @$subNavFeaturedGalleryActiveCLass }}">
+                               class="menu-link {{ @$subNavFeaturedGalleryPhotoActiveCLass }}">
                                 <span class="menu-bullet">
                                    <i class="fas fa-list-ul"></i>
                                 </span>
                                 <span class="menu-title">Featured Gallery Photo</span>
+                            </a>
+                            <a href="{{ route('admin.setting.featured-video.index') }}"
+                               class="menu-link {{ @$subNavFeaturedGalleryVideoActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Featured Gallery Video</span>
                             </a>
                         </div>
                     </div>

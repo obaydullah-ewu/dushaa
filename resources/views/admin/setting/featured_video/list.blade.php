@@ -31,7 +31,7 @@
                         <div class="card-toolbar">
                             <!--begin::Toolbar-->
                             <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <a href="{{ route('admin.setting.featured-photo.create') }}"
+                                <a href="{{ route('admin.setting.featured-video.create') }}"
                                    class="btn btn-primary er fs-6 px-8 py-4">
                                 <span class="svg-icon svg-icon-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -62,7 +62,7 @@
                                         #
                                     </div>
                                 </th>
-                                <th class="min-w-100px">Image</th>
+                                <th class="min-w-100px">Youtube Video ID</th>
                                 <th class="min-w-100px">Title</th>
                                 <th class="min-w-100px">Status</th>
                                 <th class=" min-w-100px">Action</th>
@@ -73,7 +73,7 @@
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-bold">
 
-                            @forelse($photos as $photo)
+                            @forelse($videos as $video)
                                 <!--begin::Table row-->
                                 <tr class="ms-2">
                                     <!--begin::Checkbox-->
@@ -83,10 +83,10 @@
                                         </div>
                                     </td>
                                     <!--end::Checkbox-->
-                                    <td><img src="{{ getFile($photo->image)  }}" alt="" width="50" height="50"></td>
-                                    <td><span class="text-gray-800">{{ $photo->title }}</span></td>
+                                    <td><span class="text-gray-800">{{ $video->video }}</span></td>
+                                    <td><span class="text-gray-800">{{ $video->title }}</span></td>
                                     <td>
-                                        @if($photo->status == ACTIVE)
+                                        @if($video->status == ACTIVE)
                                             <button type="button" class="btn btn-success">Active</button>
                                         @else
                                             <button type="button" class="btn btn-danger">Inactive</button>
@@ -95,7 +95,7 @@
                                     <td class="">
                                         <div class="d-flex ">
                                             <!--begin::Edit-->
-                                            <a href="{{ route('admin.setting.featured-photo.edit', $photo->id) }}"
+                                            <a href="{{ route('admin.setting.featured-video.edit', $video->id) }}"
                                                class="btn btn-icon btn-primary me-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
                                                 <span class="svg-icon svg-icon-3">
@@ -114,7 +114,7 @@
                                             <!--end::Edit-->
 
                                             <!--start::Delete-->
-                                            <button class="btn btn-icon btn-danger btn-action deleteItem" data-formid="delete_row_form_{{ $photo->id }}">
+                                            <button class="btn btn-icon btn-danger btn-action deleteItem" data-formid="delete_row_form_{{ $video->id }}">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                 <span class="svg-icon svg-icon-3">
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +133,7 @@
                                                     </span>
                                                 <!--end::Svg Icon-->
                                             </button>
-                                            <form action="{{ route('admin.setting.featured-photo.destroy', $photo->id) }}" method="post" id="delete_row_form_{{ $photo->id }}">
+                                            <form action="{{ route('admin.setting.featured-video.destroy', $video->id) }}" method="post" id="delete_row_form_{{ $video->id }}">
                                                 {{ method_field('DELETE') }}
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             </form>
@@ -155,7 +155,7 @@
                         </table>
                         <!--end::Table-->
 
-                        {{ @$photos->links('pagination::bootstrap-4') }}
+                        {{ @$videos->links('pagination::bootstrap-4') }}
 
                     </div>
                     <!--end::Card body-->
