@@ -8,14 +8,14 @@
         <div class="sidebar-area">
           <div class="sidebar-top">
             <img src="{{ asset('/') }}assets/frontend/images/user-img.jpg" alt="images">
-            <h3>Md. Riaz Uddin Khan</h3>
+            <h3>{{ \Illuminate\Support\Facades\Auth::user()->name }}</h3>
             <p>Web Developer</p>
           </div>
           <div class="sidebar-links">
             <ul>
-              <li><a href="profile.html" class="active"><span><iconify-icon icon="mdi:user"></iconify-icon></span> <span>User Profile</span></a></li>
+              <li><a href="{{ route('user.my-profile') }}" class="active"><span><iconify-icon icon="mdi:user"></iconify-icon></span> <span>My Profile</span></a></li>
               <li><a href="#"><span><iconify-icon icon="mdi:file-transfer-outline"></iconify-icon></span> <span>Transaction History</span></a></li>
-              <li><a href="#"><span><iconify-icon icon="fe:logout"></iconify-icon></span> <span>Log Out</span></a></li>
+              <li><a href="{{ route('user.logout') }}"><span><iconify-icon icon="fe:logout"></iconify-icon></span> <span>Log Out</span></a></li>
             </ul>
           </div>
         </div>

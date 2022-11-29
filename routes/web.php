@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('profile', function(){
-
     return view('frontend.user.profile');
 });
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function (){
+    Route::get('my-profile', [UserController::class, 'myProfile'])->name('my-profile');
+    Route::get('logout', [UserController::class, 'logout'])->name('logout');
+});
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
