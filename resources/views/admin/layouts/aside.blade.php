@@ -218,6 +218,34 @@
                                 </span>
                                 <span class="menu-title">Featured Gallery Video</span>
                             </a>
+                            <a href="{{ route('admin.setting.department.index') }}"
+                               class="menu-link {{ @$subNavDepartmentActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Department</span>
+                            </a>
+                            <a href="{{ route('admin.setting.designation.index') }}"
+                               class="menu-link {{ @$subNavDesignationActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Designation</span>
+                            </a>
+                            <a href="{{ route('admin.setting.member-category.index') }}"
+                               class="menu-link {{ @$subNavMemberCategoryActiveClass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Member Category</span>
+                            </a>
+                            <a href="{{ route('admin.setting.profession.index') }}"
+                               class="menu-link {{ @$subNavProfessionActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Profession</span>
+                            </a>
                         </div>
                     </div>
                 </div>

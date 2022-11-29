@@ -140,6 +140,9 @@ img {
   text-align: center;
 }
 
+.headerColor {
+    /*background-color: var(--primaryColor);*/
+}
 /* ==============================
 Default CSS Area
 =================================*/

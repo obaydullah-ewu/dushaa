@@ -29,17 +29,17 @@
                     <!-- <img class="bg-img" src="assets/images/large-logo.png" alt="image" /> -->
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                                    type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                            <a href="{{ route('login') }}" class="nav-link ">
                                 Sign In
-                            </button>
-                            <a href="{{ route('register') }}" class="nav-link" >
-                                Sign Up
                             </a>
+                            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                                    type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                Sign Up
+                            </button>
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                             <div class="tabs-content">
                                 <form action="{{ route('login.post') }}" method="post">
                                     @csrf
@@ -59,9 +59,9 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                             <div class="tabs-content">
-                                <form action="{{ route('register.post') }}" method="post">
+                                <form action="{{ route('register') }}" method="post">
                                     @csrf
                                     <div class="inputGroups mt-0">
                                         <label for="name">Name</label>

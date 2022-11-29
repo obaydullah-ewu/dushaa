@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\DesignationController;
 use App\Http\Controllers\Admin\FeaturedPhotoController;
 use App\Http\Controllers\Admin\FeaturedVideoController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\MemberCategoryController;
+use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -25,12 +29,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('profile', function(){
-    return view('frontend.user.profile');
-});
+Route::post('login', [AuthController::class, 'login'])->name('login.post');
+Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [AuthController::class, 'register'])->name('register.post');
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function (){
-    Route::get('my-profile', [UserController::class, 'myProfile'])->name('my-profile');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('my-profile', [UserController::class, 'myProfile'])->name('my-profile');
+    Route::post('my-profile', [UserController::class, 'profileUpdate'])->name('profile-update');
 });
 
 
@@ -54,6 +59,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
             Route::post('general-settings-update', [SettingController::class, 'generalSettingUpdate'])->name('general-settings.update');
             Route::resource('featured-photo', FeaturedPhotoController::class);
             Route::resource('featured-video', FeaturedVideoController::class);
+            Route::resource('department', DepartmentController::class);
+            Route::resource('designation', DesignationController::class);
+            Route::resource('member-category', MemberCategoryController::class);
+            Route::resource('profession', ProfessionController::class);
         });
     });
 });

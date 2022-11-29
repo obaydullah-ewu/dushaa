@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('/') }}assets/frontend/css/countdown.css">
     <link rel="stylesheet" href="{{ asset('/') }}assets/frontend/css/style.css" />
     <link rel="stylesheet" href="{{ asset('/') }}assets/frontend/css/responsive.css">
+    <link rel="stylesheet" href="{{ asset('/') }}assets/frontend/css/toastr.min.css" />
 </head>
 <body>
 
@@ -30,7 +31,42 @@
 <script src="{{ asset('/') }}assets/frontend/js/countdown.min.js"></script>
 <script src="{{ asset('/') }}assets/frontend/js/iconify.min.js"></script>
 <script src="{{ asset('/') }}assets/frontend/js/lightbox.min.js"></script>
+<script src="{{ asset('/') }}assets/frontend/js/toastr.min.js"></script>
 <script src="{{ asset('/') }}assets/frontend/js/custom.js"></script>
 @stack('script')
+
+<script>
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
+    @if(session()->has( 'success' ))
+    toastr.success("{{ session()->get( 'success' ) }}");
+    @endif
+
+    @if(session()->has( 'error' ))
+    toastr.error("{{ session()->get( 'error' ) }}");
+    @endif
+
+    @if (@$errors->any())
+    @foreach ($errors->all() as $error)
+    toastr.error("{{ $error }}");
+    @endforeach
+    @endif
+</script>
 </body>
 </html>

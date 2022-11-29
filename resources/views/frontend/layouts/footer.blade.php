@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="footer-logo-area">
-                    <a href="index.html"><img src="assets/frontend/images/logo.png" alt="logo"></a>
+                    <a href="{{ route('home') }}"><img src="{{ asset('/') }}assets/frontend/images/logo.png" alt="logo"></a>
                     <p>Clear has four valid values as well. The value both is most commonly used, which clears floats coming from either direction.</p>
                 </div>
             </div>
