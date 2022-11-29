@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Designation;
 use App\Models\MemberCategory;
 use App\Models\Profession;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +18,31 @@ class UserController extends Controller
     public function myProfile()
     {
         $data['pageTitle'] = 'My Profile';
+        $data['myProfileActiveClass'] = 'active';
         $data['departments'] = Department::all();
         $data['designations'] = Designation::all();
         $data['professions'] = Profession::all();
         $data['categories'] = MemberCategory::all();
         $data['user'] = User::find(Auth::id());
         return view('frontend.user.profile')->with($data);
+    }
+
+    public function transactionHistory()
+    {
+        $data['pageTitle'] = 'Transaction History';
+        $data['transactionActiveClass'] = 'active';
+        $data['transactions'] = Transaction::whereUserId(Auth::id())->get();
+        $data['user'] = User::find(Auth::id());
+        return view('frontend.user.transaction')->with($data);
+    }
+
+    public function requestMember()
+    {
+        $data['pageTitle'] = 'Request Member';
+        $data['requestMemberActiveClass'] = 'active';
+        $data['transactions'] = Transaction::whereUserId(Auth::id())->get();
+        $data['user'] = User::find(Auth::id());
+        return view('frontend.user.request-member')->with($data);
     }
 
     public function profileUpdate(Request $request)
@@ -34,7 +54,6 @@ class UserController extends Controller
             'email' => 'required|email',
             'session_year' => 'required',
             'department_id' => 'required',
-            'image' => 'required',
         ]);
 
         $user = User::find(Auth::id());
@@ -50,15 +69,12 @@ class UserController extends Controller
         $user->present_address = $request->present_address;
         $user->permanent_address = $request->permanent_address;
         $user->member_category_id = $request->member_category_id;
-
         if ($request->has('image')){
             deleteFile($user->image);
             $image = saveImage('Admin', $request->image);
             $user->image = $image;
         }
-
         $user->save();
-
         return redirect()->back()->with('success', 'Updated Successfully');
     }
 
