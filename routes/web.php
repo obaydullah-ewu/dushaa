@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\FeaturedPhotoController;
 use App\Http\Controllers\Admin\FeaturedVideoController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\MemberCategoryController;
+use App\Http\Controllers\Admin\MemberRequestController;
 use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Frontend\AuthController;
@@ -67,6 +68,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
             Route::resource('designation', DesignationController::class);
             Route::resource('member-category', MemberCategoryController::class);
             Route::resource('profession', ProfessionController::class);
+        });
+
+        Route::group(['prefix' => 'request-member', 'as' => 'request-member.'], function (){
+            Route::get('/', [MemberRequestController::class, 'memberRequestList'])->name('list');
+            Route::get('member-details/{user_id}', [MemberRequestController::class, 'memberDetails'])->name('member-details');
+            Route::post('changeStatus', [MemberRequestController::class, 'changeStatus'])->name('changeStatus');
         });
     });
 });

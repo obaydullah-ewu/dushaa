@@ -86,7 +86,7 @@ class UserController extends Controller
         $transaction->trx_id = $request->trx_id;
         $transaction->rashid_no = $request->rashid_no;
         $transaction->serial_no = $request->serial_no;
-        $transaction->purpose = "Member Request Apply";
+        $transaction->purpose = "Member Request";
         $transaction->save();
 
         return redirect()->route('user.transaction-history')->with('success', 'Created Successfully');
@@ -122,6 +122,7 @@ class UserController extends Controller
             $image = saveImage('Admin', $request->image);
             $user->image = $image;
         }
+        $user->type = 1;
         $user->save();
         return redirect()->back()->with('success', 'Updated Successfully');
     }

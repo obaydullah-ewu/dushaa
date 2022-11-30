@@ -27,7 +27,7 @@
                                         @forelse($transactions as $transaction)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
-                                                <td><span class="btn btn-success">{{ ucwords($transaction->payment_method) }}</span>
+                                                <td><span class="badge bg-success">{{ ucwords($transaction->payment_method) }}</span>
                                                     <br>
                                                     @if($transaction->payment_method == 'bkash' || $transaction->payment_method == 'nagad' || $transaction->payment_method == 'rocket')
                                                         Mobile Banking No: <b class="text-black">{{ $transaction->mobile_banking_number }}</b><br>
@@ -38,7 +38,7 @@
                                                     @endif
                                                     Date: <b class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d , Y') }}</b><br>
                                                     @if($transaction->payment_method == 'bank_draft')
-                                                        <a href="{{ getFile($transaction->bank_slip) }}" class="badge bg-success">Click for Bank Slip</a>
+                                                        <a href="{{ getFile($transaction->bank_slip) }}" class="badge bg-primary">Click for Bank Slip</a>
                                                     @endif
                                                 </td>
                                                 <td>Amount: <b>{{ $transaction->amount }}</b><br>
@@ -48,11 +48,11 @@
                                                 <td>{{ $transaction->purpose }}</td>
                                                 <td>
                                                     @if($transaction->status == 1)
-                                                        <button class="btn btn-danger">Paid</button>
+                                                        <span class="badge bg-success">Paid</span>
                                                     @elseif($transaction->status == 2)
-                                                        <button class="btn btn-danger">Cancelled</button>
+                                                        <span class="badge bg-danger">Cancelled</span>
                                                     @else
-                                                        <button class="btn btn-info">Pending</button>
+                                                        <span class="badge bg-info">Pending</span>
                                                     @endif
                                                 </td>
                                             </tr>
