@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MemberRequestController extends Controller
 {
@@ -17,7 +18,7 @@ class MemberRequestController extends Controller
             if ($request->search_field) {
                 $q->where('status', $request->search_field == 3 ? 0 : $request->search_field);
             }
-        })->where('type', 1)->paginate();
+        })->where('type', 1)->latest()->paginate();
         return view('admin.member_request.list')->with($data);
     }
 
@@ -31,7 +32,22 @@ class MemberRequestController extends Controller
 
     public function changeStatus(Request $request)
     {
-        Transaction::find($request->id)->update(['status' => $request->status]);
+        DB::beginTransaction();
+        try {
+            $transaction = Transaction::find($request->id);
+            $transaction->update(['status' => $request->status]);
+            if ($request->status == 1) {
+                User::find($transaction->user_id)->update(['role' => 1]);
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 500,
+                'error' => $exception->getMessage()
+            ]);
+        }
+
         return response()->json([
             'status' => 200
         ]);

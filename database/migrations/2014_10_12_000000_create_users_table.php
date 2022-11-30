@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->string('permanent_address')->nullable();
             $table->string('member_category_id')->nullable();
             $table->string('image')->nullable();
+            $table->tinyInteger('role')->default(0)->comment('1=Member,0=Not Member yet')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

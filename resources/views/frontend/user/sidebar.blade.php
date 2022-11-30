@@ -17,10 +17,12 @@
                 <li><a href="{{ route('user.transaction-history') }}" class="{{ @$transactionActiveClass }}">
                         <span><iconify-icon icon="mdi:file-transfer-outline"></iconify-icon></span> <span>Transaction History</span></a>
                 </li>
+                @if(auth()->user()->role != 1)
                 <li>
                     <a href="{{ route('user.request-member') }}" class="{{ @$requestMemberActiveClass }}">
                         <span><iconify-icon icon="carbon:intent-request-create"></iconify-icon></span> <span>Request member</span></a>
                 </li>
+                @endif
                 <li><a href="{{ route('user.logout') }}"><span><iconify-icon icon="fe:logout"></iconify-icon></span> <span>Log Out</span></a></li>
             </ul>
         </div>

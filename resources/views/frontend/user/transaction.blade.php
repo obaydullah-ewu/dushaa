@@ -48,7 +48,7 @@
                                                 <td>{{ $transaction->purpose }}</td>
                                                 <td>
                                                     @if($transaction->status == 1)
-                                                        <span class="badge bg-success">Paid</span>
+                                                        <span class="badge bg-success">Approved</span>
                                                     @elseif($transaction->status == 2)
                                                         <span class="badge bg-danger">Cancelled</span>
                                                     @else

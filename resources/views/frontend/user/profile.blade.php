@@ -46,8 +46,19 @@
                                     <div class="col-md-6 col-sm-6 col-12">
                                         <div class="input-groups">
                                             <label>1st year Admission Session</label>
-                                            <input type="text" class="form-control" name="session_year" value="{{ $user->session_year }}"
-                                                   placeholder="ex: 2014-15" required>
+                                            @php $last_year = date('Y') - 4 ; @endphp
+                                            <select name="session_year" class="form-select" aria-label="Default select example" required>
+                                                <option value="">Select Session Year</option>
+                                                @for($year = 1921; $year <=  $last_year; $year++)
+                                                    @php
+                                                        $y = $year;
+                                                        $year_next = substr($y, -2) + 1;
+                                                        $session_yr = $year . '-' . $year_next;
+                                                    @endphp
+                                                    <option
+                                                        value="{{ $session_yr }}" {{ $session_yr == $user->session_year ? 'selected':'' }}>{{ $session_yr }}</option>
+                                                @endfor
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-12">
@@ -114,8 +125,7 @@
                                             <select name="member_category_id" class="form-select" aria-label="Default select example">
                                                 <option value="">Select Option</option>
                                                 @foreach($categories as $category)
-                                                    <option
-                                                        value="{{ $category->id }}" {{ $category->id == $user->category_id ? 'selected':'' }}>{{ $category->name }}</option>
+                                                    <option value="{{ $category->id }}" {{ $category->id == $user->member_category_id ? 'selected':'' }}>{{ $category->name }}</option>
                                                 @endforeach
 
                                             </select>
@@ -143,3 +153,48 @@
     </div>
 
 @endsection
+@push('style')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endpush
+@push('script')
+    <script>
+        function matchStart(params, data) {
+            // If there are no search terms, return all of the data
+            if ($.trim(params.term) === '') {
+                return data;
+            }
+
+            // Skip if there is no 'children' property
+            if (typeof data.children === 'undefined') {
+                return null;
+            }
+
+            // `data.children` contains the actual options that we are matching against
+            var filteredChildren = [];
+            $.each(data.children, function (idx, child) {
+                if (child.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+                    filteredChildren.push(child);
+                }
+            });
+
+            // If we matched any of the timezone group's children, then set the matched children on the group
+            // and return the group object
+            if (filteredChildren.length) {
+                var modifiedData = $.extend({}, data, true);
+                modifiedData.children = filteredChildren;
+
+                // You can return modified objects from here
+                // This includes matching the `children` how you want in nested data sets
+                return modifiedData;
+            }
+
+            // Return `null` if the term should not be displayed
+            return null;
+        }
+
+        $(".js-example-matcher-start").select2({
+            matcher: matchStart
+        });
+    </script>
+@endpush

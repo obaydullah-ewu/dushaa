@@ -40,8 +40,7 @@
                 </ul>
             </div>
             <div class="group-button mt-30">
-                <a href="{{ route('register') }}" class="default-button"><span>Register</span></a>
-                <a href="#" class="default-button white-button"><span>Enter Main Website</span></a>
+                <a href="#" class="default-button"><span>Register</span></a>
             </div>
         </div>
     </div>

@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $data['pageTitle'] = 'Transaction History';
         $data['transactionActiveClass'] = 'active';
-        $data['transactions'] = Transaction::whereUserId(Auth::id())->get();
+        $data['transactions'] = Transaction::whereUserId(Auth::id())->latest()->get();
         $data['user'] = User::find(Auth::id());
         return view('frontend.user.transaction')->with($data);
     }
@@ -87,6 +87,7 @@ class UserController extends Controller
         $transaction->rashid_no = $request->rashid_no;
         $transaction->serial_no = $request->serial_no;
         $transaction->purpose = "Member Request";
+        $transaction->type = 1;
         $transaction->save();
 
         return redirect()->route('user.transaction-history')->with('success', 'Created Successfully');
@@ -122,7 +123,6 @@ class UserController extends Controller
             $image = saveImage('Admin', $request->image);
             $user->image = $image;
         }
-        $user->type = 1;
         $user->save();
         return redirect()->back()->with('success', 'Updated Successfully');
     }

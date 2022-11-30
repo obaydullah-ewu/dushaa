@@ -29,7 +29,7 @@ class CreateTransactionsTable extends Migration
             $table->string('rashid_no')->nullable();
             $table->string('serial_no')->nullable();
             $table->text('purpose')->nullable();
-            $table->tinyInteger('status')->default(0)->comment('0=pending,1=paid,2=cancelled')->nullable();
+            $table->tinyInteger('status')->default(0)->comment('0=pending, 1=Approved ,2=cancelled')->nullable();
             $table->tinyInteger('type')->default(0)->comment('1=member request, 2=event')->nullable();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DesignationController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\FeaturedPhotoController;
 use App\Http\Controllers\Admin\FeaturedVideoController;
 use App\Http\Controllers\Admin\LoginController;
@@ -69,6 +70,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
             Route::resource('member-category', MemberCategoryController::class);
             Route::resource('profession', ProfessionController::class);
         });
+
+        Route::resource('event', EventController::class);
 
         Route::group(['prefix' => 'request-member', 'as' => 'request-member.'], function (){
             Route::get('/', [MemberRequestController::class, 'memberRequestList'])->name('list');

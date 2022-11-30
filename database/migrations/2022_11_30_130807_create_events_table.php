@@ -17,9 +17,10 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('venue');
-            $table->date('date');
             $table->date('fee');
+            $table->date('date');
             $table->date('registration_deadline');
+            $table->text('payment_details')->nullable();
             $table->timestamps();
         });
     }

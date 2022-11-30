@@ -32,7 +32,9 @@
                                 <!--end::Search-->
                             </form>
                         </div>
-                        <!--end::Card title-->
+                        <!--begin::Card title-->
+                    </div>
+                    <!--end::Card header-->
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
                         <!--begin::Table-->
@@ -46,7 +48,7 @@
                                         #
                                     </div>
                                 </th>
-                                <th class="min-w-100px">Member Details</th>
+                                <th class="min-w-100px">Member</th>
                                 <th class="min-w-100px">Payment Method</th>
                                 <th class="min-w-100px">Amount Details</th>
                                 <th class="min-w-100px">Purpose</th>
@@ -69,7 +71,7 @@
                                         </div>
                                     </td>
                                     <!--end::Checkbox-->
-                                    <td>Name: <span class="text-gray-800">{{ @$transaction->user->name }} </span></td>
+                                    <td>Name: <span class="text-gray-800"><a href="{{ route('admin.request-member.member-details', $transaction->user_id) }}">{{ @$transaction->user->name }}</a> </span></td>
                                     <td>
                                         <span class="badge bg-success">{{ ucwords($transaction->payment_method) }}</span>
                                         <br>
@@ -80,7 +82,8 @@
                                             Rashid No: <b class="text-black">{{ $transaction->rashid_no }}</b><br>
                                             Serial No: <b class="text-black">{{ $transaction->serial_no }}</b><br>
                                         @endif
-                                        Date: <b class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d , Y') }}</b><br>
+                                        Date: <b
+                                            class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d , Y') }}</b><br>
                                         @if($transaction->payment_method == 'bank_draft')
                                             <a href="{{ getFile($transaction->bank_slip) }}" class="badge bg-primary">Click for Bank Slip</a>
                                         @endif
@@ -94,43 +97,39 @@
                                     <td><span class="text-gray-800">{{ $transaction->purpose }}</span></td>
                                     <td class="">
                                         <div class="d-flex">
-                                                <div>
-                                                    @if($transaction->status == 1)
-                                                        <span class="btn badge bg-success fs-8 fw-bold my-2">Paid</span>
-                                                    @elseif($transaction->status == 2)
-                                                        <span class="btn badge bg-danger fs-8 fw-bold my-2">Cancelled</span>
-                                                    @else
-                                                        <span class="btn badge bg-info fs-8 fw-bold my-2">Pending</span>
-                                                    @endif
-                                                </div>
-                                                <div>
-                                                    <ul class="action-list">
-                                                        <li class="nav-item dropdown">
-                                                            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="fa-sharp fa-solid fa-ellipsis-vertical"></i>Change Status
-                                                            </a>
-                                                            <span id="hidden_id" style="display: none">{{$transaction->id}}</span>
-                                                            <ul class="dropdown-menu">
-                                                                @if($transaction->status == 1 || $transaction->status == 2)
-                                                                    <li><a class="request_status dropdown-item"
-                                                                           data-status="{{0}}">{{ __('Pending') }}</a>
-                                                                    </li>
-                                                                @endif
-                                                                @if($transaction->status != 1)
-                                                                    <li><a class="request_status dropdown-item"
-                                                                           data-status="{{1}}">{{ __('Paid') }}</a>
-                                                                    </li>
-                                                                @endif
-                                                                @if($transaction->status != 2)
-                                                                    <li><a class="request_status dropdown-item"
-                                                                           data-status="{{ 2 }}">{{ __('Cancelled') }}</a>
-                                                                    </li>
-                                                                @endif
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                            <div>
+                                                @if($transaction->status == 1)
+                                                    <span class="btn badge bg-success fs-8 fw-bold my-2">Approved</span>
+                                                @elseif($transaction->status == 2)
+                                                    <span class="btn badge bg-danger fs-8 fw-bold my-2">Cancelled</span>
+                                                @else
+                                                    <span class="btn badge bg-info fs-8 fw-bold my-2">Pending</span>
+                                                @endif
                                             </div>
+                                            @if($transaction->status == 1 || $transaction->status == 2)
+                                            @else
+                                            <div>
+                                                <ul class="action-list">
+                                                    <li class="nav-item dropdown">
+                                                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"
+                                                           aria-expanded="false">
+                                                            <i class="fa-sharp fa-solid fa-ellipsis-vertical"></i>Change Status
+                                                        </a>
+                                                        <span id="hidden_id" style="display: none">{{$transaction->id}}</span>
+                                                        <ul class="dropdown-menu">
+                                                                <li><a class="request_status dropdown-item"
+                                                                       data-status="{{1}}">{{ __('Approved') }}</a>
+                                                                </li>
+                                                                <li><a class="request_status dropdown-item"
+                                                                       data-status="{{ 2 }}">{{ __('Cancelled') }}</a>
+                                                                </li>
+
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td>
                                         <!--begin::Show-->
@@ -164,7 +163,7 @@
                         </table>
                         <!--end::Table-->
 
-                        {{ @$transactions->links('pagination::bootstrap-4') }}
+                        {{ $transactions->links('pagination::bootstrap-4') }}
 
                     </div>
                     <!--end::Card body-->
@@ -177,8 +176,6 @@
     </div>
     <!--end::Content-->
 @endsection
-
-
 
 @push('script')
     <script>
@@ -200,8 +197,12 @@
                         url: "{{route('admin.request-member.changeStatus')}}",
                         data: {"status": status, "id": id, "_token": "{{ csrf_token() }}",},
                         datatype: "json",
-                        success: function (data) {
-                            toastr.success('', "{{ __('Status has been updated') }}");
+                        success: function (response) {
+                            if(response.status == 500) {
+                                toastr.warning('', 'Something went wrong!')
+                            } else if(response.status == 200) {
+                                toastr.success('', "{{ __('Status has been updated') }}");
+                            }
                             setTimeout(() => {
                                 location.reload()
                             }, 1000);
