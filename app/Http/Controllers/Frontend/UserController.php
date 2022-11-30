@@ -45,6 +45,54 @@ class UserController extends Controller
         return view('frontend.user.request-member')->with($data);
     }
 
+    public function requestMemberStore(Request $request)
+    {
+        if ($request->payment_method == 'bank_draft') {
+            $request->validate([
+                'bank_draft_no' => 'required',
+                'bank_name' => 'required',
+                'branch_name' => 'required',
+                'bank_slip' => 'required|file|mimes:jpeg,jpg,png',
+            ]);
+        } elseif (($request->payment_method == 'nagad') || ($request->payment_method == 'bkash') || ($request->payment_method == 'rocket')) {
+            $request->validate([
+                'mobile_banking_number' => 'required',
+                'trx_id' => 'required',
+            ]);
+        } elseif ($request->payment_method == 'cash') {
+            $request->validate([
+                'rashid_no' => 'required',
+                'serial_no' => 'required',
+            ]);
+        }
+
+        $transaction = new Transaction();
+        $transaction->user_id = Auth::id();
+        $transaction->payment_method = $request->payment_method;
+        $transaction->amount = $request->amount;
+        $transaction->charge_fee = $request->charge_fee;
+        $transaction->total_amount = $request->total_amount;
+        $transaction->bank_draft_no = $request->bank_draft_no;
+        $transaction->bank_name = $request->bank_name;
+        $transaction->branch_name = $request->branch_name;
+
+        if ($request->file('bank_slip')) {
+            deleteFile(@$transaction->bank_slip);
+            $bank_slip = saveImage('Transaction', $request->bank_slip);
+            $transaction->bank_slip = $bank_slip;
+        }
+
+        $transaction->mobile_banking_number = $request->mobile_banking_number;
+        $transaction->trx_id = $request->trx_id;
+        $transaction->rashid_no = $request->rashid_no;
+        $transaction->serial_no = $request->serial_no;
+        $transaction->purpose = "Member Request Apply";
+        $transaction->save();
+
+        return redirect()->route('user.transaction-history')->with('success', 'Created Successfully');
+
+    }
+
     public function profileUpdate(Request $request)
     {
         $request->validate([

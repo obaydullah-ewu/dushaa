@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
 
         Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
             Route::get('home-setting', [SettingController::class, 'homeSetting'])->name('home-setting');
+            Route::get('payment-setting', [SettingController::class, 'paymentSetting'])->name('payment-setting');
             Route::post('general-settings-update', [SettingController::class, 'generalSettingUpdate'])->name('general-settings.update');
             Route::resource('featured-photo', FeaturedPhotoController::class);
             Route::resource('featured-video', FeaturedVideoController::class);

@@ -17,8 +17,8 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('payment_method')->nullable();
-            $table->decimal('charge_fee')->default(0)->nullable();
             $table->decimal('amount')->default(0)->nullable();
+            $table->decimal('charge_fee')->default(0)->nullable();
             $table->decimal('total_amount')->default(0)->nullable();
             $table->string('bank_draft_no')->nullable();
             $table->string('bank_name')->nullable();
@@ -28,6 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->string('trx_id')->nullable();
             $table->string('rashid_no')->nullable();
             $table->string('serial_no')->nullable();
+            $table->text('purpose')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0=pending,1=paid,2=cancelled')->nullable();
             $table->timestamps();
         });

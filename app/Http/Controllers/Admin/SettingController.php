@@ -17,6 +17,14 @@ class SettingController extends Controller
         return view('admin.setting.home-setting')->with($data);
     }
 
+    public function paymentSetting()
+    {
+        $data['pageTitle'] = "Payment Setting";
+        $data['navSettingActiveCLass'] = 'hover show';
+        $data['subNavPaymentSettingActiveCLass'] = 'active';
+        return view('admin.setting.payment-setting')->with($data);
+    }
+
     public function generalSettingUpdate(Request $request)
     {
         $inputs = Arr::except($request->all(), ['_token']);

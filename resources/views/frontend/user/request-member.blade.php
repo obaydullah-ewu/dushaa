@@ -11,7 +11,7 @@
                             <h3>Payment Now</h3>
                             <p>If you want to be a member, payment now from here</p>
                         </div>
-                        <form action="{{ route('user.request-member.store') }}" method="post">
+                        <form action="{{ route('user.request-member.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="page-content mt-30">
                                 <div class="row">
@@ -54,8 +54,9 @@
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
                                                         <label for="upload_image">Bank Slip</label>
-                                                        <input type="file" accept="image/*" class="form-control bank_slip" name="bank_slip" value=""
+                                                        <input type="file" accept="image/*" class="form-control bank_slip" name="bank_slip" value="Bank Slip"
                                                                placeholder="Bank Slip">
+                                                        <p>Accepted image type: jpeg, jpg, png</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,7 +73,7 @@
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
                                                         <label for="">Transaction No</label>
-                                                        <input type="text" class="form-control trx_id" name="trx_id" value="" placeholder="Bank Name">
+                                                        <input type="text" class="form-control trx_id" name="trx_id" value="" placeholder="Transaction No">
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,19 +100,19 @@
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
                                                         <label for="">Member Fee</label>
-                                                        <input type="text" class="form-control member_fee" name="member_fee" value="" placeholder="Member Fee" readonly>
+                                                        <input type="number" step="any" min="0" class="form-control member_fee" name="amount" value="" placeholder="Member Fee" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
                                                         <label for="">Charge Fee</label>
-                                                        <input type="text" class="form-control charge_fee" name="charge_fee" value="" placeholder="Charge Fee" readonly>
+                                                        <input type="number" step="any" min="0" class="form-control charge_fee" name="charge_fee" value="" placeholder="Charge Fee" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
-                                                        <label for="">Serial No</label>
-                                                        <input type="text" class="form-control total_fee" name="total_fee" readonly value="" placeholder="Total Fee">
+                                                        <label for="">Total Fee</label>
+                                                        <input type="number" step="any" min="0" class="form-control total_amount" name="total_amount" value="" placeholder="Total Fee" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,6 +138,10 @@
         "use strict"
         $('.payment_method').click(function () {
             var payment_method = $('.payment_method').val();
+            var member_fee = parseInt("{{ empty(getOption('member_registration_fee')) ? 0 : getOption('member_registration_fee') }}")
+            $('.member_fee').val(member_fee)
+            $('.charge_fee').val(0)
+
             if(payment_method == 'bank_draft') {
                 $('.bankDraftDiv').removeClass('d-none')
                 $('.bankDraftDiv').addClass('d-block')
@@ -151,6 +156,8 @@
                 $('.trx_id').removeAttr('required');
                 $('.rashid_no').removeAttr('required');
                 $('.serial_no').removeAttr('required');
+
+                $('.total_amount').val(member_fee)
             } else if(payment_method == 'bkash' || payment_method == 'rocket' || payment_method == 'nagad') {
                 $('.mobileBankingDiv').removeClass('d-none')
                 $('.mobileBankingDiv').addClass('d-block')
@@ -165,6 +172,12 @@
                 $('.rashid_no').removeAttr('required');
                 $('.serial_no').removeAttr('required');
                 $('.bank_slip').removeAttr('required');
+
+                var charge_fee = parseInt("{{ empty(getOption('charge_fee')) ? 0:getOption('charge_fee') }}")
+                var total = member_fee + charge_fee
+                $('.charge_fee').val(charge_fee)
+                $('.total_amount').val(total)
+
             } else if (payment_method == 'cash') {
                 $('.cashDiv').removeClass('d-none')
                 $('.cashDiv').addClass('d-block')
@@ -179,6 +192,9 @@
                 $('.mobile_banking_number').removeAttr('required');
                 $('.trx_id').removeAttr('required');
                 $('.bank_slip').removeAttr('required');
+
+                var charge_fee = 0
+                $('.total_amount').val(member_fee + charge_fee)
             }
         })
     </script>
