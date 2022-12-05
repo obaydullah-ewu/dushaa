@@ -7,11 +7,19 @@ use Intervention\Image\Facades\Image;
 
 const ACTIVE = 1;
 const INACTIVE = 0;
-const AGM = 1;
-const GET_TOGETHER = 2;
 
+//Event
+const EVENT_TYPE_AGM = 1;
+const EVENT_TYPE_GET_TOGETHER = 2;
+const EVENT_STATUS_ACTIVE = 1;
+const EVENT_STATUS_DISABLE = 0;
+
+const USER_ROLE_MEMBER = 1;
+const USER_ROLE_NOT_MEMBER = 2;
 const TRANSACTION_TYPE_MEMBER_REQUEST = 1;
 const TRANSACTION_TYPE_EVENT = 2;
+const TRANSACTION_TYPE_EVENT = 2;
+
 
 function saveImage($destination, $attribute , $width=null, $height=null): string
 {

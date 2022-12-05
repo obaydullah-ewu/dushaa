@@ -47,7 +47,24 @@
                                             <input type="date" name="registration_deadline" class="form-control form-control-solid"
                                                    placeholder="Enter date" value="{{ $event->registration_deadline }}" required>
                                         </div>
-                                        <div class="form-group mb-4 col-md-4">
+                                        <label class="required fw-bolder">Event Type</label>
+                                        <div class="input-group input-group-solid">
+                                            <select name="type" class="form-select form-select-solid">
+                                                <option value="1" {{ $event->type == 1 ? 'selected':'' }}>AGM</option>
+                                                <option value="2" {{ $event->type == 2 ? 'selected':'' }}>Get Together</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4 col-md-4">
+                                        <label class="required fw-bolder">Status</label>
+                                        <div class="input-group input-group-solid">
+                                            <select name="status" class="form-select form-select-solid">
+                                                <option value="1" {{ $event->status == 1 ? 'selected':'' }}>Active</option>
+                                                <option value="0" {{ $event->status != 1 ? 'selected':'' }}>Disable</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-4 col-md-12">
                                             <label class="required fw-bolder">Payment Details</label>
                                             <textarea name="payment_details" placeholder="Type bank details, mobile banking account number etc" class="form-control form-control-solid" cols="10" rows="5">{{ $event->payment_details }}</textarea>
                                         </div>

@@ -47,6 +47,7 @@ class EventController extends Controller
             'date' => 'required',
             'fee' => 'required',
             'registration_deadline' => 'required',
+            'type' => 'required',
         ]);
 
         $item = new Event();
@@ -56,6 +57,8 @@ class EventController extends Controller
         $item->fee = $request->fee;
         $item->registration_deadline = $request->registration_deadline;
         $item->payment_details = $request->payment_details;
+        $item->type = $request->type;
+        $item->status = $request->status ?? 0;
         $item->save();
 
         return redirect()->route('admin.event.index')->with('success', 'Created Successfully');
@@ -101,6 +104,7 @@ class EventController extends Controller
             'date' => 'required',
             'fee' => 'required',
             'registration_deadline' => 'required',
+            'type' => 'required',
         ]);
 
         $item = Event::find($id);
@@ -110,6 +114,8 @@ class EventController extends Controller
         $item->fee = $request->fee;
         $item->registration_deadline = $request->registration_deadline;
         $item->payment_details = $request->payment_details;
+        $item->type = $request->type;
+        $item->status = $request->status ?? 0;
         $item->save();
 
         return redirect()->route('admin.event.index')->with('success', 'Updated Successfully');

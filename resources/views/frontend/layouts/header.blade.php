@@ -22,11 +22,12 @@
     </nav>
     <div class="container @if(URL::to('/') != url()->current()) d-none @endif">
         <div class="banner-content ptb-70">
+            @if($event)
             <h3>DR. MUHAMMAD SHAHIDULLAH HALL ALUMNI ASSOCIATION</h3>
-            <h1>শতবর্ষের মিলনমেলা</h1>
-            <h4>DATE: 14 MAY, 2022</h4>
-            <h4>VENUE: HALL & UNIVERSITY PLAY GROUND</h4>
-            <h4>REGISTRATION DEADLINE: ONGOING</h4>
+            <h1>{{ $event->name }}</h1>
+            <h4>DATE: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->date)->format('d M, Y') }}</h4>
+            <h4>VENUE: {{ $event->venue }}</h4>
+            <h4>REGISTRATION DEADLINE: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->registration_deadline)->format('d M, Y') }}</h4>
             <div class="deadline-countdown">
                 <ul id="example">
                     <li id="day"><span class="days">00</span>
@@ -42,6 +43,7 @@
             <div class="group-button mt-30">
                 <a href="#" class="default-button"><span>Register</span></a>
             </div>
+            @endif
         </div>
     </div>
 </header>

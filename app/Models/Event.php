@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+
+    public function scopeActive()
+    {
+        return $this->whereStatus(1);
+    }
 }

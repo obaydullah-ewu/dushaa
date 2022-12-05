@@ -203,6 +203,13 @@
                         </span>
                         <span class="menu-title">Member Request</span>
                     </a>
+                    <a href="{{ route('admin.request-member.approved-list') }}"
+                       class="menu-link {{ @$subNavApprovedMemberActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                        <span class="menu-title">Approved Member</span>
+                    </a>
                 </div>
 
                 <div class="menu-item">

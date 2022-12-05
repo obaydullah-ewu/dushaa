@@ -51,6 +51,7 @@
                                 <th class="min-w-100px">Member</th>
                                 <th class="min-w-100px">Payment Method</th>
                                 <th class="min-w-100px">Amount Details</th>
+                                <th class="min-w-100px">Type</th>
                                 <th class="min-w-100px">Purpose</th>
                                 <th class="min-w-100px">Status</th>
                                 <th class="min-w-100px">Action</th>
@@ -94,6 +95,7 @@
                                         Charge Fee: <span class="text-gray-800">{{ $transaction->charge_fee }} Tk</span><br>
                                         Total Amount: <span class="text-gray-800">{{ $transaction->total_amount }} Tk</span>
                                     </td>
+                                    <td><span class="text-gray-800">{{ $transaction->type == TRANSACTION_TYPE_MEMBER_REQUEST ? 'Member Request':'Event' }}</span></td>
                                     <td><span class="text-gray-800">{{ $transaction->purpose }}</span></td>
                                     <td class="">
                                         <div class="d-flex">
@@ -117,13 +119,12 @@
                                                         </a>
                                                         <span id="hidden_id" style="display: none">{{$transaction->id}}</span>
                                                         <ul class="dropdown-menu">
-                                                                <li><a class="request_status dropdown-item"
-                                                                       data-status="{{1}}">{{ __('Approved') }}</a>
-                                                                </li>
-                                                                <li><a class="request_status dropdown-item"
-                                                                       data-status="{{ 2 }}">{{ __('Cancelled') }}</a>
-                                                                </li>
-
+                                                            <li><a class="request_status dropdown-item"
+                                                                   data-status="{{1}}">{{ __('Approved') }}</a>
+                                                            </li>
+                                                            <li><a class="request_status dropdown-item"
+                                                                   data-status="{{2}}">{{ __('Cancelled') }}</a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                 </ul>

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\Profession;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,12 +17,37 @@ class MemberRequestController extends Controller
     {
         $data['pageTitle'] = 'Member Request List';
         $data['subNavMemberRequestActiveCLass'] = 'active';
-        $data['transactions'] = Transaction::where(function ($q) use ($request){
+        $data['transactions'] = Transaction::where(function ($q) use ($request) {
             if ($request->search_field) {
                 $q->where('status', $request->search_field == 3 ? 0 : $request->search_field);
             }
-        })->where('type', 1)->latest()->paginate();
-        return view('admin.member_request.list')->with($data);
+        })->latest()->paginate();
+        return view('admin.member_request.request-list')->with($data);
+    }
+
+    public function approvedMemberRequestList(Request $request)
+    {
+        $data['pageTitle'] = 'Member List';
+        $data['subNavApprovedMemberActiveCLass'] = 'active';
+        $data['designations'] = Designation::all();
+        $data['professions'] = Profession::all();
+        $data['departments'] = Department::all();
+        $data['users'] = User::whereRole(USER_ROLE_MEMBER)->where(function ($q) use ($request) {
+            if ($request->profession_id) {
+                $q->where('profession_id', $request->profession_id);
+            }
+            if ($request->designation_id) {
+                $q->where('designation_id', $request->designation_id);
+            }
+            if ($request->department_id) {
+                $q->where('department_id', $request->department_id);
+            }
+            if ($request->search_string) {
+                $q->where('name', 'like', "%{$request->search_string}%")->orWhere('email', 'like', "%{$request->search_string}%");
+            }
+        })->paginate();
+
+        return view('admin.member_request.approved-member-list')->with($data);
     }
 
     public function memberDetails($user_id)

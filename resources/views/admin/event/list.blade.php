@@ -68,6 +68,8 @@
                                 <th class="min-w-100px">Fee</th>
                                 <th class="min-w-100px">Registration Deadline</th>
                                 <th class="min-w-100px">Payment Details</th>
+                                <th class="min-w-100px">Type</th>
+                                <th class="min-w-100px">Status</th>
                                 <th class=" min-w-100px">Action</th>
                             </tr>
                             <!--end::Table row-->
@@ -87,6 +89,25 @@
                                     </td>
                                     <!--end::Checkbox-->
                                     <td><span class="text-gray-800">{{ $event->name }}</span></td>
+                                    <td><span class="text-gray-800">{{ $event->venue }}</span></td>
+                                    <td><span class="text-gray-800">{{ $event->date }}</span></td>
+                                    <td><span class="text-gray-800">{{ $event->fee }}</span></td>
+                                    <td><span class="text-gray-800">{{ $event->registration_deadline }}</span></td>
+                                    <td>
+                                        @if($event->type == EVENT_TYPE_AGM)
+                                            <span class="btn badge bg-success fs-8 fw-bold my-2">AGM</span>
+                                        @elseif($event->type == EVENT_TYPE_GET_TOGETHER)
+                                            <span class="btn badge bg-primary fs-8 fw-bold my-2">Get Together</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($event->status == EVENT_STATUS_ACTIVE)
+                                            <span class="btn badge bg-success fs-8 fw-bold my-2">Active</span>
+                                        @else
+                                            <span class="btn badge bg-danger fs-8 fw-bold my-2">Disable</span>
+                                        @endif
+                                    </td>
+
                                     <td class="">
                                         <div class="d-flex ">
                                             <!--begin::Edit-->
