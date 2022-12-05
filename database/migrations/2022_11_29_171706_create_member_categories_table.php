@@ -16,6 +16,7 @@ class CreateMemberCategoriesTable extends Migration
         Schema::create('member_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('member_fee')->default(0);
             $table->timestamps();
         });
     }

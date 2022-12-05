@@ -100,7 +100,7 @@ class UserController extends Controller
         $transaction->rashid_no = $request->rashid_no;
         $transaction->serial_no = $request->serial_no;
         $transaction->purpose = "Member Request";
-        $transaction->type = 1;
+        $transaction->type = TRANSACTION_TYPE_MEMBER_REQUEST;
         $transaction->save();
 
         return redirect()->route('user.transaction-history')->with('success', 'Created Successfully');

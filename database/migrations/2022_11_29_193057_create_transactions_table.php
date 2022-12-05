@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('payment_method')->nullable();
+            $table->unsignedBigInteger('member_category_id')->nullable();
             $table->decimal('amount')->default(0)->nullable();
             $table->decimal('charge_fee')->default(0)->nullable();
             $table->decimal('total_amount')->default(0)->nullable();
@@ -31,6 +32,7 @@ class CreateTransactionsTable extends Migration
             $table->text('purpose')->nullable();
             $table->tinyInteger('status')->default(0)->comment('0=pending, 1=Approved ,2=cancelled')->nullable();
             $table->tinyInteger('type')->default(0)->comment('1=member request, 2=event')->nullable();
+            $table->integer('total_people')->default(0)->comment('If type 2, then need to know total_people')->nullable();
             $table->timestamps();
         });
     }

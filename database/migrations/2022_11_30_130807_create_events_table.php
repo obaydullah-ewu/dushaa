@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->date('date');
             $table->date('registration_deadline');
             $table->text('payment_details')->nullable();
+            $table->tinyInteger('type')->comment('1=AGM,2=Get Together')->nullable();
             $table->timestamps();
         });
     }
