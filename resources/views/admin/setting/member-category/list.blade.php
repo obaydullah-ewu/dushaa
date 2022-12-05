@@ -63,6 +63,7 @@
                                     </div>
                                 </th>
                                 <th class="min-w-100px">Name</th>
+                                <th class="min-w-100px">Member Fee</th>
                                 <th class=" min-w-100px">Action</th>
                             </tr>
                             <!--end::Table row-->
@@ -82,6 +83,7 @@
                                     </td>
                                     <!--end::Checkbox-->
                                     <td><span class="text-gray-800">{{ $category->name }}</span></td>
+                                    <td><span class="text-gray-800">{{ $category->member_fee }}</span></td>
                                     <td class="">
                                         <div class="d-flex ">
                                             <!--begin::Edit-->

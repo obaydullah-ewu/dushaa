@@ -27,6 +27,11 @@
                                             <input type="text" name="name" class="form-control form-control-solid"
                                                    placeholder="Enter name" value="{{ $category->name }}" required>
                                         </div>
+                                        <div class="form-group mb-4 col-md-4">
+                                            <label class="required fw-bolder">Member Fee</label>
+                                            <input type="number" step="any" min="0" name="member_fee" class="form-control form-control-solid"
+                                                   placeholder="Enter member fee" value="{{ $category->member_fee }}" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer " >

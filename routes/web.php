@@ -41,6 +41,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('transaction-history', [UserController::class, 'transactionHistory'])->name('transaction-history');
     Route::get('request-member', [UserController::class, 'requestMember'])->name('request-member');
     Route::post('request-member', [UserController::class, 'requestMemberStore'])->name('request-member.store');
+    Route::get('get-category-member-fee', [UserController::class, 'categoryMemberFee'])->name('get-category-member-fee');
 });
 
 

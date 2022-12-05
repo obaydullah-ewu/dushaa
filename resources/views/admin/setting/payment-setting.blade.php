@@ -22,14 +22,9 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group mb-4 col-md-4">
-                                            <label class="required fw-bolder">Member Registration Fee</label>
-                                            <input type="number" step="any" min="0" name="member_registration_fee" class="form-control form-control-solid"
-                                                   placeholder="Enter member fee" value="{{ getOption('member_registration_fee') }}" required>
-                                        </div>
-                                        <div class="form-group mb-4 col-md-4">
-                                            <label class="required fw-bolder">Mobile Banking Charge Fee</label>
-                                            <input type="number" step="any" min="0" name="charge_fee" class="form-control form-control-solid"
-                                                   placeholder="Enter member fee" value="{{ getOption('charge_fee') }}" required>
+                                            <label class="required fw-bolder">Mobile Banking Charge Fee (% percentage per thousands)</label>
+                                            <input type="number" min="0" name="percentage_charge" class="form-control form-control-solid"
+                                                   placeholder="%" value="{{ getOption('percentage_charge') }}" required>
                                         </div>
                                     </div>
                                 </div>

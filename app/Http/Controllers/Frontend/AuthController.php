@@ -52,7 +52,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->back()->with('success', 'Registration Successfully Done');
+        return redirect()->route('login')->with('success', 'Registration Successfully Done');
     }
 
 }

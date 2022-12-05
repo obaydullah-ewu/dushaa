@@ -121,14 +121,8 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-12">
                                         <div class="input-groups">
-                                            <label for="permanent_address">Member Category</label>
-                                            <select name="member_category_id" class="form-select" aria-label="Default select example">
-                                                <option value="">Select Option</option>
-                                                @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ $category->id == $user->member_category_id ? 'selected':'' }}>{{ $category->name }}</option>
-                                                @endforeach
-
-                                            </select>
+                                            <label for="">Member Category</label>
+                                            <input type="text" class="form-control" value="{{ @$user->memberCategory->name }}" readonly>
                                         </div>
                                     </div>
                                 </div>

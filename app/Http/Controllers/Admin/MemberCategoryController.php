@@ -46,10 +46,12 @@ class MemberCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'member_fee' => 'required',
         ]);
 
         $item = new MemberCategory();
         $item->name = $request->name;
+        $item->member_fee = $request->member_fee;
         $item->save();
 
         return  redirect()->route('admin.setting.member-category.index')->with('success', 'Created Successfully');
@@ -92,13 +94,15 @@ class MemberCategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'member_fee' => 'required',
         ]);
 
         $item = MemberCategory::find($id);
         $item->name = $request->name;
+        $item->member_fee = $request->member_fee;
         $item->save();
 
-        return  redirect()->route('admin.setting.member-category.index')->with('success', 'Updated Successfully');
+        return redirect()->route('admin.setting.member-category.index')->with('success', 'Updated Successfully');
     }
 
     /**

@@ -9,12 +9,14 @@ use App\Models\MemberCategory;
 use App\Models\Profession;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Traits\ResponseStatusTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
+    use ResponseStatusTrait;
     public function myProfile()
     {
         $data['pageTitle'] = 'My Profile';
@@ -22,7 +24,6 @@ class UserController extends Controller
         $data['departments'] = Department::all();
         $data['designations'] = Designation::all();
         $data['professions'] = Profession::all();
-        $data['categories'] = MemberCategory::all();
         $data['user'] = User::find(Auth::id());
         return view('frontend.user.profile')->with($data);
     }
@@ -42,6 +43,7 @@ class UserController extends Controller
         $data['requestMemberActiveClass'] = 'active';
         $data['transactions'] = Transaction::whereUserId(Auth::id())->get();
         $data['user'] = User::find(Auth::id());
+        $data['categories'] = MemberCategory::all();
         return view('frontend.user.request-member')->with($data);
     }
 
@@ -52,23 +54,27 @@ class UserController extends Controller
                 'bank_draft_no' => 'required',
                 'bank_name' => 'required',
                 'branch_name' => 'required',
+                'member_category_id' => 'required',
                 'bank_slip' => 'required|file|mimes:jpeg,jpg,png',
             ]);
         } elseif (($request->payment_method == 'nagad') || ($request->payment_method == 'bkash') || ($request->payment_method == 'rocket')) {
             $request->validate([
                 'mobile_banking_number' => 'required',
                 'trx_id' => 'required',
+                'member_category_id' => 'required',
             ]);
         } elseif ($request->payment_method == 'cash') {
             $request->validate([
                 'rashid_no' => 'required',
                 'serial_no' => 'required',
+                'member_category_id' => 'required',
             ]);
         }
 
         $transaction = new Transaction();
         $transaction->user_id = Auth::id();
         $transaction->payment_method = $request->payment_method;
+        $transaction->member_category_id = $request->member_category_id;
         $transaction->amount = $request->amount;
         $transaction->charge_fee = $request->charge_fee;
         $transaction->total_amount = $request->total_amount;
@@ -92,6 +98,12 @@ class UserController extends Controller
 
         return redirect()->route('user.transaction-history')->with('success', 'Created Successfully');
 
+    }
+
+    public function categoryMemberFee(Request $request)
+    {
+        $response['memberCategory'] = MemberCategory::find($request->member_category_id);
+        return $this->successApiResponse($response);
     }
 
     public function profileUpdate(Request $request)

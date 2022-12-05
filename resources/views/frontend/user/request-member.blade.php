@@ -99,6 +99,18 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
+                                                        <label for="permanent_address">Member Category</label>
+                                                        <select name="member_category_id" class="form-select member_category_id" aria-label="Default select example" required>
+                                                            <option value="">Select Option</option>
+                                                            @foreach($categories as $category)
+                                                                <option value="{{ $category->id }}" {{ $category->id == $user->member_category_id ? 'selected':'' }}>{{ $category->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="input-groups">
                                                         <label for="">Member Fee</label>
                                                         <input type="number" step="any" min="0" class="form-control member_fee" name="amount" value="" placeholder="Member Fee" readonly>
                                                     </div>
@@ -137,8 +149,34 @@
     <script>
         "use strict"
         $('.payment_method').click(function () {
-            var payment_method = $('.payment_method').val();
-            var member_fee = parseInt("{{ empty(getOption('member_registration_fee')) ? 0 : getOption('member_registration_fee') }}")
+            var id = $('.member_category_id').val();
+            memberCategory(id)
+        })
+
+        $('.member_category_id').on('change', function (){
+            var id = this.value
+            memberCategory(id)
+        });
+
+        function memberCategory(id)
+        {
+            $.ajax({
+                type: "GET",
+                url: "{{route('admin.get-category-member-fee')}}",
+                data: {"member_category_id": member_category_id},
+                datatype: "json",
+                success: function (response) {
+                    $('.member_category_id').val(response)
+                    var payment_method = $('.payment_method').val();
+                    var member_fee = response.memberCategory.member_fee
+                    $('.member_fee').val(member_fee)
+                    paymentMethod(payment_method, member_fee)
+                }
+            });
+        }
+
+        function paymentMethod(payment_method, member_fee)
+        {
             $('.member_fee').val(member_fee)
             $('.charge_fee').val(0)
 
@@ -173,7 +211,8 @@
                 $('.serial_no').removeAttr('required');
                 $('.bank_slip').removeAttr('required');
 
-                var charge_fee = parseInt("{{ empty(getOption('charge_fee')) ? 0:getOption('charge_fee') }}")
+                var percentage_charge = parseFloat("{{ getOption('percentage_charge') }}")
+                var charge_fee = parseInt(member_fee) * (percentage_charge / 100)
                 var total = member_fee + charge_fee
                 $('.charge_fee').val(charge_fee)
                 $('.total_amount').val(total)
@@ -196,7 +235,7 @@
                 var charge_fee = 0
                 $('.total_amount').val(member_fee + charge_fee)
             }
-        })
+        }
     </script>
 
 @endpush
