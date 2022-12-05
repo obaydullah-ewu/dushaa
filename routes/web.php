@@ -76,7 +76,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
         Route::resource('event', EventController::class);
 
         Route::group(['prefix' => 'request-member', 'as' => 'request-member.'], function (){
-            Route::get('/', [MemberRequestController::class, 'memberRequestList'])->name('list');
+            Route::get('request-member', [MemberRequestController::class, 'memberRequestList'])->name('list');
+            Route::get('request-event', [MemberRequestController::class, 'eventRequestList'])->name('request-event.list');
             Route::get('approved-list', [MemberRequestController::class, 'approvedMemberRequestList'])->name('approved.list');
             Route::get('member-details/{user_id}', [MemberRequestController::class, 'memberDetails'])->name('member-details');
             Route::post('changeStatus', [MemberRequestController::class, 'changeStatus'])->name('changeStatus');

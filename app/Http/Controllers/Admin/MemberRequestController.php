@@ -21,8 +21,20 @@ class MemberRequestController extends Controller
             if ($request->search_field) {
                 $q->where('status', $request->search_field == 3 ? 0 : $request->search_field);
             }
-        })->latest()->paginate();
-        return view('admin.member_request.request-list')->with($data);
+        })->where('type', TRANSACTION_TYPE_MEMBER_REQUEST)->latest()->paginate();
+        return view('admin.member_request.member-request-list')->with($data);
+    }
+
+    public function eventRequestList(Request $request)
+    {
+        $data['pageTitle'] = 'Event Request List';
+        $data['subNavEventRequestActiveCLass'] = 'active';
+        $data['transactions'] = Transaction::where(function ($q) use ($request) {
+            if ($request->search_field) {
+                $q->where('status', $request->search_field == 3 ? 0 : $request->search_field);
+            }
+        })->where('type', TRANSACTION_TYPE_EVENT)->latest()->paginate();
+        return view('admin.member_request.event-request-list')->with($data);
     }
 
     public function approvedMemberRequestList(Request $request)
@@ -64,7 +76,7 @@ class MemberRequestController extends Controller
         try {
             $transaction = Transaction::find($request->id);
             $transaction->update(['status' => $request->status]);
-            if ($request->status == 1) {
+            if ($request->status == 1 && $transaction->type == TRANSACTION_TYPE_MEMBER_REQUEST) {
                 User::find($transaction->user_id)->update(['role' => 1, 'member_category_id' => $transaction->member_category_id]);
             }
             DB::commit();
