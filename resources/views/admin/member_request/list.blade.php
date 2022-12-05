@@ -83,7 +83,7 @@
                                             Serial No: <b class="text-black">{{ $transaction->serial_no }}</b><br>
                                         @endif
                                         Date: <b
-                                            class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d , Y') }}</b><br>
+                                            class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d M, Y') }}</b><br>
                                         @if($transaction->payment_method == 'bank_draft')
                                             <a href="{{ getFile($transaction->bank_slip) }}" class="badge bg-primary">Click for Bank Slip</a>
                                         @endif

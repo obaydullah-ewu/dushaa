@@ -21,6 +21,7 @@
                                             <th scope="col">Amount Details</th>
                                             <th scope="col">Purpose</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -55,10 +56,13 @@
                                                         <span class="badge bg-info">Pending</span>
                                                     @endif
                                                 </td>
+                                                <td>
+                                                    <a href="{{ route('user.transaction-history.details', $transaction->id) }}" target="_blank"><span><iconify-icon icon="material-symbols:payments-outline"></iconify-icon></span></a>
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">No Record Found</td>
+                                                <td colspan="6" class="text-center">No Record Found</td>
                                             </tr>
                                         @endforelse
                                         </tbody>

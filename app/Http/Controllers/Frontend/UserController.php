@@ -37,6 +37,13 @@ class UserController extends Controller
         return view('frontend.user.transaction')->with($data);
     }
 
+    public function transactionHistoryDetails($id)
+    {
+        $data['transaction'] = Transaction::find($id);
+        return view('frontend.print.payment-slip')->with($data);
+    }
+
+
     public function requestMember()
     {
         $data['pageTitle'] = 'Request Member';
@@ -129,7 +136,6 @@ class UserController extends Controller
         $user->office_address = $request->office_address;
         $user->present_address = $request->present_address;
         $user->permanent_address = $request->permanent_address;
-        $user->member_category_id = $request->member_category_id;
         if ($request->has('image')){
             deleteFile($user->image);
             $image = saveImage('Admin', $request->image);

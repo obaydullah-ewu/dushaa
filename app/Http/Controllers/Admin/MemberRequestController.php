@@ -37,7 +37,7 @@ class MemberRequestController extends Controller
             $transaction = Transaction::find($request->id);
             $transaction->update(['status' => $request->status]);
             if ($request->status == 1) {
-                User::find($transaction->user_id)->update(['role' => 1]);
+                User::find($transaction->user_id)->update(['role' => 1, 'member_category_id' => $transaction->member_category_id]);
             }
             DB::commit();
         } catch (\Exception $exception) {
