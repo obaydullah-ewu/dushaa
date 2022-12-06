@@ -15,16 +15,27 @@
                             @csrf
                             <div class="page-content mt-30">
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-12">
+                                    <div class="col-md-6 col-sm-6 col-6">
                                         <div class="input-groups">
                                             <label>Payment Method</label>
-                                            <select name="payment_method" class="form-select payment_method" aria-label="Default select example" required>
+                                            <select name="payment_method" class="form-select payment_method" required>
                                                 <option value="">Select Option</option>
                                                 <option value="bank_draft">Bank Draft</option>
                                                 <option value="bkash">Bkash</option>
                                                 <option value="rocket">Rocket</option>
                                                 <option value="nagad">Nagad</option>
                                                 <option value="cash">Cash</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-6">
+                                        <div class="input-groups">
+                                            <label for="permanent_address">Member Category</label>
+                                            <select name="member_category_id" class="form-select member_category_id"  required>
+                                                <option value="">Select Option</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -99,18 +110,6 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-sm-6 col-12">
                                                     <div class="input-groups">
-                                                        <label for="permanent_address">Member Category</label>
-                                                        <select name="member_category_id" class="form-select member_category_id" aria-label="Default select example" required>
-                                                            <option value="">Select Option</option>
-                                                            @foreach($categories as $category)
-                                                                <option value="{{ $category->id }}" {{ $category->id == $user->member_category_id ? 'selected':'' }}>{{ $category->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 col-sm-6 col-12">
-                                                    <div class="input-groups">
                                                         <label for="">Member Fee</label>
                                                         <input type="number" step="any" min="0" class="form-control member_fee" name="amount" value="" placeholder="Member Fee" readonly>
                                                     </div>
@@ -148,94 +147,103 @@
 
     <script>
         "use strict"
-        $('.payment_method').click(function () {
-            var id = $('.member_category_id').val();
-            memberCategory(id)
-        })
+        $( document ).ready(function() {
+            $('.payment_method').click(function (e) {
+                e.preventDefault()
+                var id = $('.member_category_id').val();
+                if (id == null || id == '') {
+                    return
+                }
+                memberCategory(id)
+            })
 
-        $('.member_category_id').on('change', function (){
-            var id = this.value
-            memberCategory(id)
+            $('.member_category_id').on('change', function (e){
+                e.preventDefault()
+                var id = $('.member_category_id').val();
+                if (id == null || id == '') {
+                    return
+                }
+                memberCategory(id)
+            });
+
+            function memberCategory(id)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('user.get-category-member-fee')}}",
+                    data: {"id": id},
+                    datatype: "json",
+                    success: function (response) {
+                        var payment_method = $('.payment_method').val();
+                        var member_fee = response.memberCategory.member_fee
+                        $('.member_fee').val(member_fee)
+                        paymentMethod(payment_method, member_fee)
+                    }
+                });
+            }
+
+            function paymentMethod(payment_method, member_fee)
+            {
+                $('.member_fee').val(member_fee)
+                $('.charge_fee').val(0)
+
+                if(payment_method == 'bank_draft') {
+                    $('.bankDraftDiv').removeClass('d-none')
+                    $('.bankDraftDiv').addClass('d-block')
+                    $('.mobileBankingDiv').addClass('d-none')
+                    $('.cashDiv').addClass('d-none')
+
+                    $('.bank_draft_no').attr('required', true);
+                    $('.bank_name').attr('required', true);
+                    $('.branch_name').attr('required', true);
+                    $('.bank_slip').attr('required', true);
+                    $('.mobile_banking_number').removeAttr('required');
+                    $('.trx_id').removeAttr('required');
+                    $('.rashid_no').removeAttr('required');
+                    $('.serial_no').removeAttr('required');
+
+                    $('.total_amount').val(member_fee)
+                } else if(payment_method == 'bkash' || payment_method == 'rocket' || payment_method == 'nagad') {
+                    $('.mobileBankingDiv').removeClass('d-none')
+                    $('.mobileBankingDiv').addClass('d-block')
+                    $('.bankDraftDiv').addClass('d-none')
+                    $('.cashDiv').addClass('d-none')
+
+                    $('.mobile_banking_number').attr('required', true);
+                    $('.trx_id').attr('required', true);
+                    $('.bank_draft_no').removeAttr('required');
+                    $('.bank_name').removeAttr('required');
+                    $('.branch_name').removeAttr('required');
+                    $('.rashid_no').removeAttr('required');
+                    $('.serial_no').removeAttr('required');
+                    $('.bank_slip').removeAttr('required');
+
+                    var percentage_charge = parseFloat("{{ getOption('percentage_charge') }}")
+                    var charge_fee = parseInt(member_fee) * (percentage_charge / 1000)
+                    var total = member_fee + charge_fee
+                    $('.charge_fee').val(charge_fee)
+                    $('.total_amount').val(total)
+
+                } else if (payment_method == 'cash') {
+                    $('.cashDiv').removeClass('d-none')
+                    $('.cashDiv').addClass('d-block')
+                    $('.bankDraftDiv').addClass('d-none')
+                    $('.mobileBankingDiv').addClass('d-none')
+
+                    $('.rashid_no').attr('required', true);
+                    $('.serial_no').attr('required', true);
+                    $('.bank_draft_no').removeAttr('required');
+                    $('.bank_name').removeAttr('required');
+                    $('.branch_name').removeAttr('required');
+                    $('.mobile_banking_number').removeAttr('required');
+                    $('.trx_id').removeAttr('required');
+                    $('.bank_slip').removeAttr('required');
+
+                    $('.total_amount').val(member_fee)
+                }
+            }
         });
 
-        function memberCategory(id)
-        {
-            $.ajax({
-                type: "GET",
-                url: "{{route('admin.get-category-member-fee')}}",
-                data: {"member_category_id": member_category_id},
-                datatype: "json",
-                success: function (response) {
-                    $('.member_category_id').val(response)
-                    var payment_method = $('.payment_method').val();
-                    var member_fee = response.memberCategory.member_fee
-                    $('.member_fee').val(member_fee)
-                    paymentMethod(payment_method, member_fee)
-                }
-            });
-        }
-
-        function paymentMethod(payment_method, member_fee)
-        {
-            $('.member_fee').val(member_fee)
-            $('.charge_fee').val(0)
-
-            if(payment_method == 'bank_draft') {
-                $('.bankDraftDiv').removeClass('d-none')
-                $('.bankDraftDiv').addClass('d-block')
-                $('.mobileBankingDiv').addClass('d-none')
-                $('.cashDiv').addClass('d-none')
-
-                $('.bank_draft_no').attr('required', true);
-                $('.bank_name').attr('required', true);
-                $('.branch_name').attr('required', true);
-                $('.bank_slip').attr('required', true);
-                $('.mobile_banking_number').removeAttr('required');
-                $('.trx_id').removeAttr('required');
-                $('.rashid_no').removeAttr('required');
-                $('.serial_no').removeAttr('required');
-
-                $('.total_amount').val(member_fee)
-            } else if(payment_method == 'bkash' || payment_method == 'rocket' || payment_method == 'nagad') {
-                $('.mobileBankingDiv').removeClass('d-none')
-                $('.mobileBankingDiv').addClass('d-block')
-                $('.bankDraftDiv').addClass('d-none')
-                $('.cashDiv').addClass('d-none')
-
-                $('.mobile_banking_number').attr('required', true);
-                $('.trx_id').attr('required', true);
-                $('.bank_draft_no').removeAttr('required');
-                $('.bank_name').removeAttr('required');
-                $('.branch_name').removeAttr('required');
-                $('.rashid_no').removeAttr('required');
-                $('.serial_no').removeAttr('required');
-                $('.bank_slip').removeAttr('required');
-
-                var percentage_charge = parseFloat("{{ getOption('percentage_charge') }}")
-                var charge_fee = parseInt(member_fee) * (percentage_charge / 100)
-                var total = member_fee + charge_fee
-                $('.charge_fee').val(charge_fee)
-                $('.total_amount').val(total)
-
-            } else if (payment_method == 'cash') {
-                $('.cashDiv').removeClass('d-none')
-                $('.cashDiv').addClass('d-block')
-                $('.bankDraftDiv').addClass('d-none')
-                $('.mobileBankingDiv').addClass('d-none')
-
-                $('.rashid_no').attr('required', true);
-                $('.serial_no').attr('required', true);
-                $('.bank_draft_no').removeAttr('required');
-                $('.bank_name').removeAttr('required');
-                $('.branch_name').removeAttr('required');
-                $('.mobile_banking_number').removeAttr('required');
-                $('.trx_id').removeAttr('required');
-                $('.bank_slip').removeAttr('required');
-
-                var charge_fee = 0
-                $('.total_amount').val(member_fee + charge_fee)
-            }
-        }
     </script>
 
 @endpush

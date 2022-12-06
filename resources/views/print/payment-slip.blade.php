@@ -21,7 +21,7 @@
 </header>
 <div class="city-logo money-slip-logo">
     <div class="container">
-        <img src="{{ asset(getOption('app_logo')) }}" alt="logo">
+{{--        <img src="{{ asset('assets/frontend/images/logo.png') }}" alt="logo">--}}
     </div>
 </div>
 
@@ -92,9 +92,11 @@
                 <li>Date: <span>{{ $transaction->created_at }}</span></li>
             </ul>
         </div>
+        @if($transaction->status == TRANSACTION_STATUS_APPROVED)
         <div class="invoice-paid-seal">
             <img src="{{ asset('assets/pdf/images/paid.png') }}" alt="seal">
         </div>
+        @endif
     </div>
 </div>
 

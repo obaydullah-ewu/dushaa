@@ -26,7 +26,7 @@
                                         <div class="input-groups">
                                             <label for="Nname">Nick Name</label>
                                             <input type="text" class="form-control" id="Nname" name="nick_name" value="{{ $user->nick_name }}"
-                                                   placeholder="Nick Name" required>
+                                                   placeholder="Nick Name">
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-12">

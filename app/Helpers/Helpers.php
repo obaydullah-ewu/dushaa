@@ -16,9 +16,13 @@ const EVENT_STATUS_DISABLE = 0;
 
 const USER_ROLE_MEMBER = 1;
 const USER_ROLE_NOT_MEMBER = 2;
+//Transaction
 const TRANSACTION_TYPE_MEMBER_REQUEST = 1;
 const TRANSACTION_TYPE_EVENT = 2;
-const TRANSACTION_TYPE_EVENT = 2;
+
+const TRANSACTION_STATUS_PENDING = 0;
+const TRANSACTION_STATUS_APPROVED = 1;
+const TRANSACTION_STATUS_CANCELLED = 2;
 
 
 function saveImage($destination, $attribute , $width=null, $height=null): string

@@ -25,9 +25,9 @@
             @if($event)
             <h3>DR. MUHAMMAD SHAHIDULLAH HALL ALUMNI ASSOCIATION</h3>
             <h1>{{ $event->name }}</h1>
-            <h4>DATE: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->date)->format('d M, Y') }}</h4>
+            <h4>DATE: {{ Carbon\Carbon::createFromFormat('Y-m-d', $event->date)->format('d M, Y') }}</h4>
             <h4>VENUE: {{ $event->venue }}</h4>
-            <h4>REGISTRATION DEADLINE: {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->registration_deadline)->format('d M, Y') }}</h4>
+            <h4>REGISTRATION DEADLINE: {{ Carbon\Carbon::createFromFormat('Y-m-d', $event->registration_deadline)->format('d M, Y') }}</h4>
             <div class="deadline-countdown">
                 <ul id="example">
                     <li id="day"><span class="days">00</span>

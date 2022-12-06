@@ -222,7 +222,7 @@
                         </span>
                         <span class="menu-title">Event Request</span>
                     </a>
-                    <a href="{{ route('admin.request-member.approved-list') }}"
+                    <a href="{{ route('admin.request-member.approved.list') }}"
                        class="menu-link {{ @$subNavApprovedMemberActiveCLass }}">
                                 <span class="menu-bullet">
                                    <i class="fas fa-list-ul"></i>
@@ -312,6 +312,13 @@
                                 </span>
                                 <span class="menu-title">Department</span>
                             </a>
+                            <a href="{{ route('admin.setting.profession.index') }}"
+                               class="menu-link {{ @$subNavProfessionActiveCLass }}">
+                                <span class="menu-bullet">
+                                   <i class="fas fa-list-ul"></i>
+                                </span>
+                                <span class="menu-title">Profession</span>
+                            </a>
                             <a href="{{ route('admin.setting.designation.index') }}"
                                class="menu-link {{ @$subNavDesignationActiveCLass }}">
                                 <span class="menu-bullet">
@@ -325,13 +332,6 @@
                                    <i class="fas fa-list-ul"></i>
                                 </span>
                                 <span class="menu-title">Member Category</span>
-                            </a>
-                            <a href="{{ route('admin.setting.profession.index') }}"
-                               class="menu-link {{ @$subNavProfessionActiveCLass }}">
-                                <span class="menu-bullet">
-                                   <i class="fas fa-list-ul"></i>
-                                </span>
-                                <span class="menu-title">Profession</span>
                             </a>
                         </div>
                     </div>

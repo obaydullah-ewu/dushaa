@@ -40,9 +40,8 @@ class UserController extends Controller
     public function transactionHistoryDetails($id)
     {
         $data['transaction'] = Transaction::find($id);
-        return view('frontend.print.payment-slip')->with($data);
+        return view('print.payment-slip')->with($data);
     }
-
 
     public function requestMember()
     {
@@ -109,7 +108,7 @@ class UserController extends Controller
 
     public function categoryMemberFee(Request $request)
     {
-        $response['memberCategory'] = MemberCategory::find($request->member_category_id);
+        $response['memberCategory'] = MemberCategory::find($request->id);
         return $this->successApiResponse($response);
     }
 
@@ -117,7 +116,6 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nick_name' => 'required',
             'mobile_number' => 'required',
             'email' => 'required|email',
             'session_year' => 'required',

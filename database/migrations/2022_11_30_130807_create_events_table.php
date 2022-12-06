@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('venue');
-            $table->date('fee');
+            $table->integer('fee');
             $table->date('date');
             $table->date('registration_deadline');
             $table->text('payment_details')->nullable();
