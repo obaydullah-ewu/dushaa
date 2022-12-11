@@ -8,7 +8,7 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="page-content-wrapper">
                         <div class="page-content-header">
-                            <h3>Transaction History</h3>
+                            <h3>{{ @$pageTitle }}</h3>
                         </div>
                         <div class="page-content mt-30">
                             <div class="row">
@@ -34,7 +34,7 @@
                                                         Mobile Banking No: <b class="text-black">{{ $transaction->mobile_banking_number }}</b><br>
                                                         Transaction No: <b class="text-black">{{ $transaction->trx_id }}</b><br>
                                                     @elseif($transaction->payment_method == 'cash')
-                                                       Rashid No: <b class="text-black">{{ $transaction->rashid_no }}</b><br>
+                                                        Rashid No: <b class="text-black">{{ $transaction->rashid_no }}</b><br>
                                                         Serial No: <b class="text-black">{{ $transaction->serial_no }}</b><br>
                                                     @endif
                                                     Date: <b class="text-black">{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $transaction->created_at)->format('d M, Y') }}</b><br>
@@ -44,7 +44,7 @@
                                                 </td>
                                                 <td>
                                                     @if($transaction->type == 2)
-                                                    Total People: <b>{{ $transaction->total_people }}</b><br>
+                                                        Total People: <b>{{ $transaction->total_people }}</b><br>
                                                     @endif
                                                     Amount: <b>{{ $transaction->amount }}</b><br>
                                                     Charge Fee: <b>{{ $transaction->charge_fee }}</b><br>
@@ -71,6 +71,7 @@
                                         @endforelse
                                         </tbody>
                                     </table>
+                                    {{ $transactions->links('pagination::bootstrap-4') }}
                                 </div>
                             </div>
                         </div>

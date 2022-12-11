@@ -14,6 +14,7 @@
         <div class="sidebar-links">
             <ul>
                 <li><a href="{{ route('user.my-profile') }}" class="{{ @$myProfileActiveClass }}"><span><iconify-icon icon="mdi:user"></iconify-icon></span> <span>My Profile</span></a></li>
+                <li><a href="{{ route('user.all-members') }}" class="{{ @$allMemberActiveClass }}"><span><iconify-icon icon="mdi:users-group"></iconify-icon></span> <span>All Member</span></a></li>
                 <li><a href="{{ route('user.transaction-history') }}" class="{{ @$transactionActiveClass }}">
                         <span><iconify-icon icon="mdi:file-transfer-outline"></iconify-icon></span> <span>Transaction History</span></a>
                 </li>

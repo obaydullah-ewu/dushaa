@@ -28,11 +28,37 @@ class UserController extends Controller
         return view('frontend.user.profile')->with($data);
     }
 
+    public function allMembers(Request $request)
+    {
+        $data['pageTitle'] = 'All Members';
+        $data['allMemberActiveClass'] = 'active';
+        $data['designations'] = Designation::all();
+        $data['professions'] = Profession::all();
+        $data['departments'] = Department::all();
+        $data['members'] = User::whereRole(USER_ROLE_MEMBER)->where(function ($q) use ($request) {
+            if ($request->profession_id) {
+                $q->where('profession_id', $request->profession_id);
+            }
+            if ($request->designation_id) {
+                $q->where('designation_id', $request->designation_id);
+            }
+            if ($request->department_id) {
+                $q->where('department_id', $request->department_id);
+            }
+            if ($request->search_string) {
+                $q->where('name', 'like', "%{$request->search_string}%")->orWhere('email', 'like', "%{$request->search_string}%");
+            }
+        })->paginate();
+
+        $data['user'] = User::find(Auth::id());
+        return view('frontend.user.all-members')->with($data);
+    }
+
     public function transactionHistory()
     {
         $data['pageTitle'] = 'Transaction History';
         $data['transactionActiveClass'] = 'active';
-        $data['transactions'] = Transaction::whereUserId(Auth::id())->latest()->get();
+        $data['transactions'] = Transaction::whereUserId(Auth::id())->latest()->paginate();
         $data['user'] = User::find(Auth::id());
         return view('frontend.user.transaction')->with($data);
     }
