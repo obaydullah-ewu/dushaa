@@ -21,7 +21,7 @@ class EventRegistrationController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         if ($user->role != 1) {
-            return redirect()->back()->with('warning', 'You are not a member');
+            return redirect()->back()->with('error', 'You are not a member');
         }
 
         if ($request->payment_method == 'bank_draft') {

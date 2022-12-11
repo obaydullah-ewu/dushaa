@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerificationMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -51,8 +53,23 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->token = Hash::make(rand(1000,9999));
         $user->save();
-        return redirect()->route('login')->with('success', 'Registration Successfully Done');
+        $verify_route = route('register.verify',[$user->id, $user->token]);
+        Mail::to($request->email)->send(new EmailVerificationMail($verify_route));
+        return redirect()->route('login')->with('success', 'An email verification url send your given email. Please follow instructions');
+    }
+
+    public function registerVerify($user_id, $token)
+    {
+        $user = User::where(['id' => $user_id, 'token' => $token])->first();
+        if ($user){
+            $user->email_verified_at = now();
+            $user->token = null;
+            $user->save();
+            return redirect()->route('login')->with('success', 'Successfully verified your account. Please Login Now');
+        }
+        return redirect()->route('login')->with('error', 'Sorry! Your link is not valid');
     }
 
 }

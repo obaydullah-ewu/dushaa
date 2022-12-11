@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('member_category_id')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('role')->default(0)->comment('1=Member,0=Not Member yet')->nullable();
+            $table->text('token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -35,7 +35,8 @@ Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [AuthController::class, 'register'])->name('register.post');
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function (){
+Route::get('register/verify/{user_id}/{token}', [AuthController::class, 'registerVerify'])->name('register.verify');
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'IsVerifiedMail']], function (){
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('my-profile', [UserController::class, 'myProfile'])->name('my-profile');
     Route::post('my-profile', [UserController::class, 'profileUpdate'])->name('profile-update');
