@@ -9,10 +9,7 @@
       }
   });
 
-
-  $("#example").countdown({
-    date: "12/24/2023 23:59:59",
-  });
-
-
+  // $("#example").countdown({
+  //   date: "12/24/2023 23:59:59",
+  // });
 })(jQuery);

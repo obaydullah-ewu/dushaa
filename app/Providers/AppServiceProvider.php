@@ -29,10 +29,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('frontend.layouts.header', function ($view) {
-            $data['event'] = Event::whereDate('registration_deadline', '>=', now())->whereDate('date', '>=', now())->first();
+            $data['event'] = Event::whereDate('registration_deadline', '>=', now())->whereDate('date', '>=', now())->active()->first();
             $view->with($data);
         });
-
 
         try {
             $connection = DB::connection()->getPdo();
