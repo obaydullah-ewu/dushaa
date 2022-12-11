@@ -57,33 +57,7 @@
                                     </div>
                                     <button class="default-button" type="submit"><span>Submit</span></button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="tabs-content">
-                                <form action="{{ route('register.post') }}" method="post">
-                                    @csrf
-                                    <div class="inputGroups mt-0">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Enter Your Name" required />
-                                    </div>
-                                    <div class="inputGroups">
-                                        <label for="email">Email</label>
-                                        <input type="email" name="email" class="form-control" placeholder="Enter Your Email" required />
-                                    </div>
-                                    <div class="inputGroups">
-                                        <label for="email">Password</label>
-                                        <input type="password" name="password" class="form-control" placeholder="Password" required />
-                                    </div>
-                                    <div class="inputGroups">
-                                        <label for="email">Confirm Password</label>
-                                        <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password"
-                                               required />
-                                    </div>
-                                    <button class="default-button" type="submit">
-                                        <span>Submit</span>
-                                    </button>
-                                </form>
+                                <a href="{{ route('forget-password') }}" class="mt-2">Forget Password?</a>
                             </div>
                         </div>
                     </div>

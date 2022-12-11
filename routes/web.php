@@ -36,6 +36,13 @@ Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('register', [AuthController::class, 'register'])->name('register.post');
 Route::get('register/verify/{user_id}/{token}', [AuthController::class, 'registerVerify'])->name('register.verify');
+
+Route::get('forget-password', [AuthController::class, 'forgetPassword'])->name('forget-password');
+Route::post('forget-password/email/sent', [AuthController::class, 'forgetPasswordEmailSent'])->name('forget-password.email-sent');
+Route::get('forget-password/email/otp-check/{id}', [AuthController::class, 'forgetPasswordOTP'])->name('forget-password.otp');
+Route::post('forget-password/email/otp-check', [AuthController::class, 'forgetPasswordOTPCheck'])->name('forget-password.otpCheck');
+
+
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth', 'IsVerifiedMail']], function (){
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('my-profile', [UserController::class, 'myProfile'])->name('my-profile');
