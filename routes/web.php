@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\MemberRequestController;
 use App\Http\Controllers\Admin\ProfessionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\EventRegistrationController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -43,6 +44,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], func
     Route::get('request-member', [UserController::class, 'requestMember'])->name('request-member');
     Route::post('request-member', [UserController::class, 'requestMemberStore'])->name('request-member.store');
     Route::get('get-category-member-fee', [UserController::class, 'categoryMemberFee'])->name('get-category-member-fee');
+    Route::get('event-registration/{id}', [EventRegistrationController::class, 'eventRegistration'])->name('eventRegistration');
+    Route::post('event-registration/{id}', [EventRegistrationController::class, 'eventRegistrationStore'])->name('eventRegistration.store');
 });
 
 

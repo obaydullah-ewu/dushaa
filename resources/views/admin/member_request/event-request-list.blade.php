@@ -20,7 +20,7 @@
                                         <select name="search_field" class="form-select form-select-solid">
                                             <option value="">--Select Status</option>
                                             <option value="3" {{ app('request')->search_field == 3 ? 'selected':'' }}>Pending</option>
-                                            <option value="1" {{ app('request')->search_field == 1 ? 'selected':'' }}>Paid</option>
+                                            <option value="1" {{ app('request')->search_field == 1 ? 'selected':'' }}>Paid & Approved</option>
                                             <option value="2" {{ app('request')->search_field == 2 ? 'selected':'' }}>Cancelled</option>
                                         </select>
                                     </div>
@@ -91,6 +91,8 @@
                                     </td>
 
                                     <td>
+                                        Total People: <span class="text-gray-800">{{ $transaction->total_people }}</span><br>
+                                        Amount: <span class="text-gray-800">{{ $transaction->amount }} Tk</span><br>
                                         Amount: <span class="text-gray-800">{{ $transaction->amount }} Tk</span><br>
                                         Charge Fee: <span class="text-gray-800">{{ $transaction->charge_fee }} Tk</span><br>
                                         Total Amount: <span class="text-gray-800">{{ $transaction->total_amount }} Tk</span>

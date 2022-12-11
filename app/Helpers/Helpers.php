@@ -24,7 +24,6 @@ const TRANSACTION_STATUS_PENDING = 0;
 const TRANSACTION_STATUS_APPROVED = 1;
 const TRANSACTION_STATUS_CANCELLED = 2;
 
-
 function saveImage($destination, $attribute , $width=null, $height=null): string
 {
     if (!File::isDirectory(base_path().'/public/uploads/'.$destination)){

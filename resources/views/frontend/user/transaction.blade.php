@@ -42,7 +42,11 @@
                                                         <a href="{{ getFile($transaction->bank_slip) }}" class="badge bg-primary">Click for Bank Slip</a>
                                                     @endif
                                                 </td>
-                                                <td>Amount: <b>{{ $transaction->amount }}</b><br>
+                                                <td>
+                                                    @if($transaction->type == 2)
+                                                    Total People: <b>{{ $transaction->total_people }}</b><br>
+                                                    @endif
+                                                    Amount: <b>{{ $transaction->amount }}</b><br>
                                                     Charge Fee: <b>{{ $transaction->charge_fee }}</b><br>
                                                     Total Amount: <b>{{ $transaction->total_amount }}</b>
                                                 </td>

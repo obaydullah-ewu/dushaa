@@ -41,7 +41,7 @@
                 </ul>
             </div>
             <div class="group-button mt-30">
-                <a href="#" class="default-button"><span>Register</span></a>
+                <a href="{{ route('user.eventRegistration', $event->id) }}" class="default-button"><span>Register</span></a>
             </div>
             @endif
         </div>

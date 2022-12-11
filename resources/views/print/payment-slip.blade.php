@@ -33,7 +33,7 @@
                 <h6 id="name">{{ $transaction->id }}</h6>
             </div>
             <div class="invoice-top-right-area">
-                <h5>Date Of Invoice</h5>
+                <h5>Date of Invoice:</h5>
                 <h6><span id="date">{{ date('M d, Y', strtotime($transaction->created_at)) }}</span></h6>
             </div>
         </div>
@@ -41,7 +41,12 @@
             <tr>
                 <td>#</td>
                 <td>Description</td>
-                <td>Member Category</td>
+                @if($transaction->type == 1)
+                    <td>Member Category</td>
+                @elseif($transaction->type == 2)
+                    <td>Total People</td>
+                @endif
+
                 <td>Member Fee</td>
                 <td>Charge Fee</td>
                 <td>TOTAL</td>
@@ -49,7 +54,11 @@
             <tr>
                 <td>01</td>
                 <td>{{ $transaction->purpose }}</td>
-                <td>{{ @$transaction->memberCategory->name }}</td>
+                @if($transaction->type == 1)
+                    <td>{{ @$transaction->memberCategory->name }}</td>
+                @elseif($transaction->type == 2)
+                    <td>{{ $transaction->total_people }}</td>
+                @endif
                 <td>{{ $transaction->amount }}</td>
                 <td>{{ $transaction->mobile_banking_charge_fee }}</td>
                 <td>{{ $transaction->total_amount }}</td>
